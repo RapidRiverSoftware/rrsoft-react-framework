@@ -44,6 +44,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
@@ -74,6 +75,7 @@
     "predeploy:docs": "npm run build:docs",
     "deploy:docs": "gh-pages -d build",
     "build:commonjs": "cross-env NODE_ENV=production babel ./src --out-dir ./lib --ignore spec.js",
+    "build:commonjs-watch": "chokidar 'src/**/*.js' -c 'cross-env NODE_ENV=production babel ./src --out-dir ./lib --ignore spec.js'",
     "prepublish": "npm run build:lib"
   },
   "jest": {
@@ -126,6 +128,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "chokidar-cli": "^1.2.0",
     "cpx": "^1.5.0",
     "rimraf": "^2.6.2"
   }

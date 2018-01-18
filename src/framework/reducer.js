@@ -1,6 +1,6 @@
 // @flow
 import { fromJS } from 'immutable';
-import createReducer from '../core/util/createReducer';
+import createReducer from '../util/redux/createReducer';
 
 import {
   ADD_ITEM,
@@ -15,6 +15,4 @@ handlers[ADD_ITEM] = (state, action) => {
   return state.set(key, value)
 };
 
-const r = createReducer(initialState, handlers);
-console.log(r)
-export default r
+export default createReducer(initialState, handlers);

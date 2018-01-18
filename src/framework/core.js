@@ -11,8 +11,9 @@ import coreReducer from './reducer'
 const featureConfigs = []
 const reducers = {}
 const dispatchQueue = []
-let isStarted = false
 
+let isStarted = false
+let DefaultApp = null
 let installCount = -1
 
 const core = {
@@ -38,8 +39,13 @@ const core = {
   },
 
 
+  setDefaultApp(App) {
+    DefaultApp = App
+  },
+
+
   // start the app
-  start(App, rootNode) {
+  start(rootNode) {
     const next = () => {
       installCount += 1
       const featureConfig = featureConfigs[installCount]
@@ -51,7 +57,7 @@ const core = {
       } else {
         const history = createHistory();
         this.store = configureStore(combineReducers(reducers), function(){}, Map({}), history);
-        ReactDOM.render(<App />, rootNode);
+        ReactDOM.render(<DefaultApp store={this.store} />, rootNode);
         isStarted = true
         each(dispatchQueue, action => this.store.dispatch(action))
         console.log("finish installing")
