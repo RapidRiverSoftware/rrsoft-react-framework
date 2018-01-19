@@ -12,10 +12,10 @@ const configureStore = (
   initialState: {},
   history: Object,
 ): Store => {
-  // const epicMiddleware = createEpicMiddleware(rootEpic);
+  const epicMiddleware = createEpicMiddleware(rootEpic);
   const historyRouterMiddleware = routerMiddleware(history);
 
-  const middlewares = [historyRouterMiddleware];
+  const middlewares = [historyRouterMiddleware, epicMiddleware];
 
   const enhancers = [applyMiddleware(...middlewares)];
 

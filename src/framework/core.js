@@ -1,32 +1,62 @@
 import configureStore from './configureStore'
 import createHistory from 'history/createBrowserHistory'
 import { combineReducers } from 'redux-immutable'
+import { reducer as formReducer } from 'redux-form/immutable'
+import { routerReducer } from 'react-router-redux';
+import { combineEpics } from 'redux-observable';
 import { Map } from 'immutable'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { addItem } from './actions'
 import each from 'lodash/each'
+import isArray from 'lodash/isArray'
+
+import 'rxjs/add/observable/dom/ajax';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/mapTo';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
+
+
+import { addItem } from './action'
 import coreReducer from './reducer'
 
 const featureConfigs = []
 const reducers = {}
+const epics = []
 const dispatchQueue = []
+const config = []
 
 let isStarted = false
 let DefaultApp = null
 let installCount = -1
 
 const core = {
-  // bootstraping for apps
   addReducer(name, reducer) {
     reducers[name] = reducer
   },
 
 
+  addEpic(epic) {
+    if (isArray(epic)) {
+      epics.push(...epic)
+    } else {
+      epics.push(epic)
+    }
+  },
+
+
   // install feature
   install(feature, options = {}) {
-    featureConfigs.push({register: feature.register, options})
-    // console.log(feature)
+    featureConfigs.push({ register: feature.register, options })
+  },
+
+
+  set(name, value) {
+    config[name] = value
+  },
+
+  get(name) {
+    return config[name]
   },
 
 
@@ -36,6 +66,11 @@ const core = {
     } else {
       dispatchQueue.push(addItem(key, value))
     }
+  },
+
+
+  dispatch(action) {
+    this.store.dispatch(action)
   },
 
 
@@ -56,7 +91,8 @@ const core = {
         register(this, featureConfig.options, next)
       } else {
         const history = createHistory();
-        this.store = configureStore(combineReducers(reducers), function(){}, Map({}), history);
+        console.log(epics)
+        this.store = configureStore(combineReducers(reducers), combineEpics(...epics), Map({}), history);
         ReactDOM.render(<DefaultApp store={this.store} />, rootNode);
         isStarted = true
         each(dispatchQueue, action => this.store.dispatch(action))
@@ -65,9 +101,13 @@ const core = {
     }
 
     installCount = -1
+    this.addReducer('routing', routerReducer)
+    this.addReducer('form', formReducer)
 
     next()
   }
 }
+
+window.rrcore = core
 
 export default core

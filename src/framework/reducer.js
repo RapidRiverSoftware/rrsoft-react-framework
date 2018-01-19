@@ -4,7 +4,7 @@ import createReducer from '../util/redux/createReducer';
 
 import {
   ADD_ITEM,
-} from './actionTypes';
+} from './actionType';
 
 const handlers = {};
 
