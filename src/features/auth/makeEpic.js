@@ -1,12 +1,19 @@
 // @flow
+import { apiPost, responseToAction } from '../../util/api';
+
+import {
+  LOGIN,
+  LOGOUT
+} from './actionType'
 
 const makeEpic = (url) => {
-  const pingEpic = action$ =>
+  const loginEpic = (action$: any, store: any) =>
     action$
-      .filter(action => action.type === 'PING')
-      .mapTo({ type: url });
-      
-  return pingEpic
+      .ofType(LOGIN)
+      .mergeMap(action => apiPost(`/lala`))
+      .map(responseToAction(LOGOUT));
+
+  return loginEpic
 }
 
 export default makeEpic
