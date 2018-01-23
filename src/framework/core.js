@@ -101,7 +101,8 @@ const core = {
         const history = createHistory();
 
         this.store = configureStore(combineReducers(reducers), combineEpics(...epics), fromJS(initialState), history)
-        ReactDOM.render(<DefaultApp {... defaultAppOptions} store={this.store} />, rootNode)
+
+        ReactDOM.render(<DefaultApp {...defaultAppOptions} store={this.store} />, rootNode)
         isStarted = true
         each(dispatchQueue, action => this.store.dispatch(action))
         console.log("finish installing")
