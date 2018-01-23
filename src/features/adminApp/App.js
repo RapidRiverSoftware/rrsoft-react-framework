@@ -9,23 +9,15 @@ import {
 } from 'react-router-dom'
 
 import { PrivateRoute, LoginPage } from '../auth'
+import makeAdminPage from './makeAdminPage'
 
-const Public = (props) => <div></div>
 
 const BasicExample = ({ items, store }) => (
   <Provider store={store}>
     <Router>
       <div>
-        <LoginPage />
-        {/* <AuthButton/> */}
-        <ul>
-          <li><Link to="/public">Public Page</Link></li>
-          <li><Link to="/protected">Protected Page</Link></li>
-        </ul>
-        <Route path="/public" render={props => <div>{JSON.stringify(props)}</div>}/>
         <Route path="/login" component={LoginPage}/>
-
-        <PrivateRoute path="/protected" component={(props) => <div>i am protected{props.hello}=</div>} />
+        <PrivateRoute path="/dashboard" component={makeAdminPage(() => <div>made dash</div>)} />
       </div>
     </Router>
   </Provider>

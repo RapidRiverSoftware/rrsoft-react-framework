@@ -10,7 +10,7 @@ const makeEpic = (url) => {
   const loginEpic = (action$: any, store: any) =>
     action$
       .ofType(LOGIN)
-      .mergeMap(action => apiPost(`/lala`))
+      .mergeMap(action => apiPost(url))
       .map(responseToAction(LOGOUT));
 
   return loginEpic

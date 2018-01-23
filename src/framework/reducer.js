@@ -8,11 +8,11 @@ import {
 
 const handlers = {};
 
-const initialState = fromJS({});
+const initialState = fromJS({mainMenu: []});
 
 handlers[ADD_ITEM] = (state, action) => {
   const { key, value } = action;
-  return state.set(key, value)
+  return state.push(key, value)
 };
 
 export default createReducer(initialState, handlers);
