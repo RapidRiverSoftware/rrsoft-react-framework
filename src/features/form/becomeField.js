@@ -43,13 +43,14 @@ const becomeField = (WrappedInputComponent: any) => (props: Object) => {
 };
 
 const becomeReduxFormInput = WrappedInputComponent => (props) => {
-  const { input, label, meta: { active, touched, error }, ...inputProps } = props;
+  const { id, input, label, meta: { active, touched, error }, ...inputProps } = props;
   const gotError = touched && error;
+  const htmlId = id || input.name;
 
   return (
     <div>
-      {renderLabel(label, input.name, active)}
-      <WrappedInputComponent {...input} {...inputProps} isActive={active} />
+      {renderLabel(label, htmlId, active)}
+      <WrappedInputComponent id={htmlId} {...input} {...inputProps} isActive={active} />
       <span style={{ color: 'red' }}>{gotError ? error : null}</span>
     </div>
   );
@@ -57,10 +58,10 @@ const becomeReduxFormInput = WrappedInputComponent => (props) => {
 
 const memoBecomeReduxFormInput = memoize(becomeReduxFormInput);
 
-const renderLabel = (label, name, isActive) => {
+const renderLabel = (label, htmlId, isActive) => {
   if (label) {
     return (
-      <Label htmlFor={name} isActive={isActive}>
+      <Label htmlFor={htmlId} isActive={isActive}>
         {label}
       </Label>
     );
