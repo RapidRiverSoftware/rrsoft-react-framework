@@ -12,7 +12,7 @@ export const LoginFormComponent = ({ handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <TextField name="username" label="Username" />
     <PasswordField name="password" label="Password" />
-    <input type="submit" />
+    <button type="submit">Log In</button>
   </form>
 )
 

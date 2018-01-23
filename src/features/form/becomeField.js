@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { Field } from 'redux-form/immutable';
 import memoize from 'lodash/memoize';
 import validators from './validators';
@@ -70,11 +70,10 @@ const renderLabel = (label, htmlId, isActive) => {
   return <div style={{ height: '20px' }} />;
 };
 
-const Label = styled.label`
-  ${'' /* color: ${({ isActive }) => (isActive ? color.secondary : color.lightNeutral)}; */}
+const Label = withTheme(styled.label`
+  color: ${({ isActive, theme }) => (isActive ? theme.secondaryLabelColor(5) : theme.primaryLabelColor(5))};
   display: block;
-  line-height: 20px;
-  ${'' /* font-size: ${font.xsmall}; */}
-`;
+  font-size: ${({ theme }) => theme.fontSize(5)};
+`);
 
 export default becomeField;

@@ -65,16 +65,6 @@ const apiGeneric = (url: string, options: Options = {}) => {
   };
   Object.assign(opt, options);
 
-  if (authToken) {
-    if (opt.method === 'GET') {
-      opt.query.auth_token = authToken;
-    } else if (opt.body instanceof FormData) {
-      opt.body.append('auth_token', authToken);
-    } else {
-      opt.body.auth_token = authToken;
-    }
-  }
-
   const query = serialize(opt.query);
   const symbol = url.indexOf('?') === -1 ? '?' : '&';
 
@@ -82,8 +72,8 @@ const apiGeneric = (url: string, options: Options = {}) => {
     'Content-Type': 'application/json',
   };
 
-  if (opt.body instanceof FormData) {
-    headers = {};
+  if (authToken) {
+    headers['Authorization'] = authToken;
   }
 
   return ajax({

@@ -1,15 +1,16 @@
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 // import { weight, color, gap, font } from '../../../../style/config';
 
-export default styled.input`
+export default withTheme(styled.input`
   box-sizing: border-box;
   border-radius: 0;
   border-width: 0 0 1px 0;
-  border-style: dashed;
-  ${'' /* border-color: ${color.lightNeutral};
-  padding: 0 ${gap.small}px;
-  font-size: ${font.large};
-  font-weight: ${weight.normal}; */}
+  border-style: solid;
+  border-color: ${({ theme }) => theme.primaryBorderColor(5)};
+  padding: 0 ${({ theme }) => theme.gap(3)};
+  font-size: ${({ theme }) => theme.fontSize(5)};
+  height: 40px;
+  font-weight: ${({ theme }) => theme.fontWeight(5)};
   width: 100%;
   color: black;
   line-height: 19px;
@@ -33,4 +34,4 @@ export default styled.input`
     outline: 0;
     ${'' /* border-color: ${color.secondary}; */}
   }
-`;
+`);
