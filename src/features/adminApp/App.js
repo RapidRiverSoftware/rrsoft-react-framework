@@ -5,18 +5,27 @@ import { Route } from 'react-router-dom'
 import { PrivateRoute, LoginPage } from '../auth'
 import makeAdminPage from './makeAdminPage'
 
-const AppComponent = ({ items, store }) => (
+const AppComponent = ({ mainMenu }) => (
   <div>
     <Route path="/login" component={LoginPage}/>
 
-    <PrivateRoute path="/dashboard" component={makeAdminPage(() => <div>made dash</div>)} />
+    {
+      mainMenu.map(item => {
+        return (
+          <PrivateRoute key={item.value} path={item.value} component={makeAdminPage(item.component)} />
+        )
+      })
+    }
+
   </div>
 )
 
 const mapStateToProps = (state) => {
+  const mainMenu = state.getIn(['core', 'mainMenu'])
+
   return {
-    items: state.getIn(['core', 'mainMenu'])
+    mainMenu: mainMenu ? mainMenu.toJS() : []
   }
-};
+}
 
 export default connect(mapStateToProps)(AppComponent)

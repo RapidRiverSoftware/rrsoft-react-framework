@@ -8,7 +8,7 @@ const SideMenu = ({ mainMenu }) => {
   return (
     <div>
       {
-        mainMenu.map(item => <Link to={item.value}>{item.label}</Link>)
+        mainMenu.map(item => <Link key={item.value} to={item.value}>{item.label}</Link>)
       }
     </div>
   )

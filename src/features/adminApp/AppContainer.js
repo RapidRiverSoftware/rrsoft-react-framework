@@ -6,7 +6,6 @@ import Theme from '../../framework/Theme'
 import App from './App'
 
 const AppContainer = ({ store }) => {
-  console.log(store)
 
   return (
     <Provider store={store}>
