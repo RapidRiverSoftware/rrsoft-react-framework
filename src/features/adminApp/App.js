@@ -22,6 +22,7 @@ const BasicExample = ({ items, store }) => (
         <div>
           <Lala />
           <Route path="/login" component={LoginPage}/>
+
           <PrivateRoute path="/dashboard" component={makeAdminPage(() => <div>made dash</div>)} />
         </div>
       </Router>

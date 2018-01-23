@@ -25,8 +25,9 @@ const reducers = {}
 const epics = []
 const dispatchQueue = []
 const config = {}
-let initialState = {}
 
+let initialState = {}
+let defaultAppOptions = {}
 let isStarted = false
 let DefaultApp = null
 let installCount = -1
@@ -75,8 +76,9 @@ const core = {
   },
 
 
-  setDefaultApp(App) {
+  setDefaultApp(App, options = {}) {
     DefaultApp = App
+    defaultAppOptions = options
   },
 
 
@@ -97,9 +99,9 @@ const core = {
         register(this, featureConfig.options, next)
       } else {
         const history = createHistory();
-        console.log(initialState)
+
         this.store = configureStore(combineReducers(reducers), combineEpics(...epics), fromJS(initialState), history)
-        ReactDOM.render(<DefaultApp store={this.store} />, rootNode)
+        ReactDOM.render(<DefaultApp {... defaultAppOptions} store={this.store} />, rootNode)
         isStarted = true
         each(dispatchQueue, action => this.store.dispatch(action))
         console.log("finish installing")
