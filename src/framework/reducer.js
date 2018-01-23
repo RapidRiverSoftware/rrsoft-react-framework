@@ -1,5 +1,5 @@
 // @flow
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import createReducer from '../util/redux/createReducer';
 
 import {
@@ -8,11 +8,11 @@ import {
 
 const handlers = {};
 
-const initialState = fromJS({mainMenu: []});
+const initialState = fromJS({});
 
 handlers[ADD_ITEM] = (state, action) => {
   const { key, value } = action;
-  return state.push(key, value)
+  return state.updateIn([key], arr => arr ? arr.push(value) : List())
 };
 
 export default createReducer(initialState, handlers);
