@@ -25,8 +25,8 @@ type ColumnShape = StandardField | CustomRender;
 const Datagrid = ({ columns, data }) => {
   return (
     <table border="1">
-      { headerRenderer(columns) }
-      { bodyRenderer(columns, data) }
+      <thead>{ headerRenderer(columns) }</thead>
+      <tbody>{ bodyRenderer(columns, data) }</tbody>
     </table>
   )
 }

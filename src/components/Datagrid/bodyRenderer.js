@@ -13,9 +13,9 @@ const renderCell = (col, row) => {
 }
 
 const bodyRenderer = (columns, data) => {
-  return data.map(row => (
-    <tr>
-      { columns.map(col => <td>{ renderCell(col, row) }</td>) }
+  return data.map((row, ridx) => (
+    <tr key={ridx}>
+      { columns.map((col, cidx) => <td key={cidx}>{ renderCell(col, row) }</td>) }
     </tr>
   ))
 }
