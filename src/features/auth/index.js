@@ -10,6 +10,7 @@ export default {
     console.log("installing auth")
 
     core.addEpic(makeEpic(options.url || '/login'))
+    core.addReducer('auth', reducer)
 
     next()
   }

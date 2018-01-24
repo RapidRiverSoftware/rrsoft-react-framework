@@ -12,6 +12,14 @@ type Options = {
   action?: Object,
 };
 
+const defaultOptions = {
+  query: {},
+  body: {},
+  method: 'GET',
+  action: {},
+  startPath: '/api',
+};
+
 const serialize = (obj = {}, prefix) => {
   const str = [];
   let k;
@@ -43,27 +51,22 @@ export const getCookie = (name: string) => {
   return null;
 };
 
-export const apiGet = (url: string, options: Options = {}) =>
-  apiGeneric(url, { ...options, method: 'GET' });
+export const apiGet = (url: string, query = {}, options: Options = {}) =>
+  apiGeneric(url, { ...options, query, method: 'GET' });
 
-export const apiPut = (url: string, options: Options = {}) =>
-  apiGeneric(url, { ...options, method: 'PUT' });
+export const apiPut = (url: string, body = {}, options: Options = {}) =>
+  apiGeneric(url, { ...options, body, method: 'PUT' });
 
-export const apiPost = (url: string, options: Options = {}) =>
-  apiGeneric(url, { ...options, method: 'POST' });
+export const apiPost = (url: string, body = {}, options: Options = {}) =>
+  apiGeneric(url, { ...options, body, method: 'POST' });
 
-export const apiDelete = (url: string, options: Options = {}) =>
-  apiGeneric(url, { ...options, method: 'DELETE' });
+export const apiDelete = (url: string, body = {}, options: Options = {}) =>
+  apiGeneric(url, { ...options, body, method: 'DELETE' });
 
 const apiGeneric = (url: string, options: Options = {}) => {
   const authToken = getCookie('auth_token');
-  const opt = {
-    query: {},
-    body: {},
-    method: 'GET',
-    action: {},
-  };
-  Object.assign(opt, options);
+
+  const opt = Object.assign({}, defaultOptions, options);
 
   const query = serialize(opt.query);
   const symbol = url.indexOf('?') === -1 ? '?' : '&';
@@ -77,7 +80,7 @@ const apiGeneric = (url: string, options: Options = {}) => {
   }
 
   return ajax({
-    url: `/api${url}${symbol}${query}`,
+    url: `${opt.startPath}${url}${query ? `${symbol}${query}` : ''}`,
     method: opt.method,
     headers,
     crossDomain: true,
@@ -102,13 +105,13 @@ const apiGeneric = (url: string, options: Options = {}) => {
       return result;
     })
     .catch((error) => {
-      if (
-        (window.location.host === '127.0.0.1:3000' || window.location.host === 'localhost:3000') &&
-        error.status === 401
-      ) {
-        window.location.href = '/sign_in';
+      if (error.status === 403) {
+        window.location.href = '/login';
       } else if (error.status === 401) {
-        window.location.href = '/users/sign_in';
+        return Observable.of({
+          error: error.response.message,
+          status: error.status,
+        })
       }
       // return Observable.of(displayErrorMessage('There was an error.', error.status));
       return Observable.of('123');
@@ -119,3 +122,11 @@ export const responseToAction = (type: string) => (payload: any) => ({
   type,
   ...payload,
 });
+
+export const makeApi = (getApiOptions: () => ({})) => ({
+  get: (url, query = {}, options = {}) => apiGet(url, query, {...getApiOptions(), ...options}),
+  post: (url, body = {}, options = {}) => apiPost(url, body, {...getApiOptions(), ...options}),
+  put: (url, body = {}, options = {}) => apiPut(url, body, {...getApiOptions(), ...options}),
+  delete: (url, body = {}, options = {}) => apiDelete(url, body, {...getApiOptions(), ...options}),
+  responseToAction,
+})

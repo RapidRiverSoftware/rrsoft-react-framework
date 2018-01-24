@@ -2,7 +2,7 @@
 
 import {
   LOGIN,
-  LOGOUT
+  LOGOUT,
 } from './actionType';
 
 type Node = any;

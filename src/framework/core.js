@@ -17,8 +17,9 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
 
 
-import { addItem } from './action'
+import { addItem, setItem } from './action'
 import coreReducer from './reducer'
+import { makeApi } from '../util/api'
 
 const featureConfigs = []
 const reducers = {}
@@ -28,9 +29,14 @@ const config = {}
 
 let initialState = {}
 let defaultAppOptions = {}
+let apiOptions = {
+  startPath: '/api',
+}
 let isStarted = false
 let DefaultApp = null
 let installCount = -1
+
+const getApiOptions = () => apiOptions;
 
 const core = {
   addReducer(name, reducer) {
@@ -70,6 +76,13 @@ const core = {
     }
   },
 
+  setItem(key, value) {
+    if (isStarted) {
+      this.store.dispatch(setItem(key, value))
+    } else {
+      dispatchQueue.push(setItem(key, value))
+    }
+  },
 
   dispatch(action) {
     this.store.dispatch(action)
@@ -82,10 +95,15 @@ const core = {
   },
 
 
+  setApiOptions(options = {}) {
+    apiOptions = options
+  },
+
   setState(state) {
     initialState = { ...initialState, ...state }
   },
 
+  api: makeApi(getApiOptions),
 
   // start the app
   start(rootNode) {
