@@ -13,12 +13,13 @@ const makeEpic = (url) => {
   const loginEpic = (action$: any, store: any) =>
     action$
       .ofType(LOGIN)
+      .do(() => console.log("meowowwww"))
       .mergeMap(action => core.api.post(url, action.data.toJS()))
       .map(val => {
         if (val.status === 401) {
           return core.api.responseToAction(LOGIN_ERROR)(val)
         } else {
-          cookie.set('authToken', val.data.get('token'), {expires: 365})
+          core.storage.set('authToken', val.data.get('token'))
           return core.api.responseToAction(LOGIN_SUCCESS)(val)
         }
       })

@@ -1,15 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import styled, { withTheme } from 'styled-components'
 import Topbar from './Topbar'
 import SideMenu from './SideMenu'
 import Content from './Content'
 
-const makeAdminPage = (WrappedComponent) => (props) => (
-  <div>
-    <Topbar />
-    <SideMenu />
-    <Content component={<WrappedComponent />} />
-  </div>
+const makeAdminPage = (WrappedComponent, logo) => (props) => (
+  <Layout>
+    <Side>
+      <SideMenu logo={logo} />
+    </Side>
+    <Body>
+      <Topbar />
+      <Content component={<WrappedComponent />} />
+    </Body>
+  </Layout>
 )
+
+const Layout = withTheme(styled.div`
+  display: flex;
+  flex-direction: row;
+`);
+
+const Header = withTheme(styled.div`
+
+`);
+
+const Body = withTheme(styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`)
+
+const Side = withTheme(styled.div`
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: overlay;
+  display: flex;
+  flex-direction: column;
+`)
 
 export default makeAdminPage

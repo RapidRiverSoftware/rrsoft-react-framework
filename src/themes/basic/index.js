@@ -28,6 +28,30 @@ export default {
         9: '30px',
         10: '35px',
       }[n]),
+      primaryMenuTextColor: n => ({
+        1: '#fefefe',
+        2: '#fefefe',
+        3: '#fefefe',
+        4: '#ffffff',
+        5: '#fefefe',
+        6: '#ededed',
+        7: '#fefefe',
+        8: '#fefefe',
+        9: '#fefefe',
+        10: '#fefefe',
+      }[n]),
+      primaryMenuBgColor: n => ({
+        1: '#303e4d',
+        2: '#303e4d',
+        3: '#856dac',
+        4: '#4c3b67',
+        5: '#2c223c',
+        6: '#14101b',
+        7: '#303e4d',
+        8: '#303e4d',
+        9: '#303e4d',
+        10: '#303e4d',
+      }[n]),
       primaryLabelColor: n => ({
         1: '#a9a9a9',
         2: '#a9a9a9',
@@ -64,7 +88,7 @@ export default {
         9: '#bababa',
         10: '#bababa',
       }[n]),
-      textColor: n => ({
+      primaryTextColor: n => ({
         1: '#212121',
         2: '#212121',
         3: '#212121',
@@ -76,7 +100,7 @@ export default {
         9: '#212121',
         10: '#212121',
       }[n]),
-      bgColor: n => ({
+      primaryBgColor: n => ({
         1: '#003282',
         2: '#003282',
         3: '#003282',

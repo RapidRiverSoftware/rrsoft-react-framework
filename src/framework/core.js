@@ -20,6 +20,7 @@ import 'rxjs/add/operator/switchMap';
 import { addItem, setItem } from './action'
 import coreReducer from './reducer'
 import { makeApi } from '../util/api'
+import { makeStorage } from '../util/storage'
 
 const featureConfigs = []
 const reducers = {}
@@ -104,6 +105,7 @@ const core = {
   },
 
   api: makeApi(getApiOptions),
+  storage: makeStorage(),
 
   // start the app
   start(rootNode) {

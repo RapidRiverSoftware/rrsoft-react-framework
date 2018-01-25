@@ -5,14 +5,14 @@ import { Route } from 'react-router-dom'
 import { PrivateRoute, LoginPage } from '../auth'
 import makeAdminPage from './makeAdminPage'
 
-const AppComponent = ({ mainMenu }) => (
+const AppComponent = ({ mainMenu, logo }) => (
   <div>
     <Route path="/login" component={LoginPage}/>
 
     {
       mainMenu.map(item => {
         return (
-          <PrivateRoute key={item.value} path={item.value} component={makeAdminPage(item.component)} />
+          <PrivateRoute key={item.value} path={item.value} component={makeAdminPage(item.component, logo)} />
         )
       })
     }
@@ -21,10 +21,12 @@ const AppComponent = ({ mainMenu }) => (
 )
 
 const mapStateToProps = (state) => {
+  const logo = state.getIn(['core', 'logo'])
   const mainMenu = state.getIn(['core', 'mainMenu'])
 
   return {
-    mainMenu: mainMenu ? mainMenu.toJS() : []
+    mainMenu: mainMenu ? mainMenu.toJS() : [],
+    logo
   }
 }
 

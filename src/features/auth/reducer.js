@@ -1,5 +1,6 @@
 // @flow
 import { fromJS } from 'immutable';
+import core from '../../framework/core';
 import createReducer from '../../util/redux/createReducer';
 import {
   LOGIN_ERROR,
@@ -8,7 +9,9 @@ import {
 
 const handlers = {};
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  token: core.storage.get('authToken')
+});
 
 /*
  * reducers definitions
