@@ -10,7 +10,8 @@ import {
 const handlers = {};
 
 const initialState = fromJS({
-  token: core.storage.get('authToken')
+  token: core.storage.get('authToken'),
+  name: core.storage.get('authName'),
 });
 
 /*
@@ -18,6 +19,7 @@ const initialState = fromJS({
  */
 
 handlers[LOGIN_SUCCESS] = (state, action) => state
+  .updateIn(['name'], () => action.data.get('name'))
   .updateIn(['token'], () => action.data.get('token'))
 
 handlers[LOGIN_ERROR] = (state, action) => state

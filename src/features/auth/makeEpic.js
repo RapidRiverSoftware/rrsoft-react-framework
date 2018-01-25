@@ -20,6 +20,7 @@ const makeEpic = (url) => {
           return core.api.responseToAction(LOGIN_ERROR)(val)
         } else {
           core.storage.set('authToken', val.data.get('token'))
+          core.storage.set('authName', val.data.get('name'))
           return core.api.responseToAction(LOGIN_SUCCESS)(val)
         }
       })

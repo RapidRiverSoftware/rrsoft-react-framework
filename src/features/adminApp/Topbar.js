@@ -1,19 +1,27 @@
 // @flow
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
+import { connect } from 'react-redux'
+import { AvatarAndName } from '../../components/Avatar'
+import Split from '../../components/grouping/Split'
 
-const Topbar = ({ logo }) => {
-  return <Layout>
-  </Layout>
-}
+const Topbar = ({ name, logo }) => <Layout>
+  <Split push="right">
+    <div></div>
+    <AvatarAndName name={name} size={40} />
+  </Split>
+</Layout>
+
+const mapStateToProps = (state) => ({
+  name: state.getIn(['auth', 'name'])
+})
 
 const Layout = withTheme(styled.div`
   display: flex;
+  align-items: center;
   height: 50px;
-  font-size: ${({ theme }) => theme.fontSize(7)}
-  background: #ECE9E6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #ECE9E6, #FFFFFF);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #ECE9E6, #FFFFFF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-size: ${({ theme }) => theme.fontSize(7)};
+  background: ${({ theme }) => theme.primaryTopBarBgColor(5)};
 `)
 
-export default Topbar
+export default connect(mapStateToProps)(Topbar)
