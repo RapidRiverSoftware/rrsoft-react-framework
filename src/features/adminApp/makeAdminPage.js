@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Topbar from './Topbar'
 import SideMenu from './SideMenu'
 import Content from './Content'
+import memoize from 'lodash/memoize'
 
 const makeAdminPage = (WrappedComponent) => (props) => (
   <div>
@@ -12,4 +13,4 @@ const makeAdminPage = (WrappedComponent) => (props) => (
   </div>
 )
 
-export default makeAdminPage
+export default memoize(makeAdminPage)
