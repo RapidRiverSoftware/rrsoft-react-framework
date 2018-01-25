@@ -6,15 +6,14 @@ import Theme from '../../framework/Theme'
 import App from './App'
 
 const AppContainer = ({ store }) => {
-
   return (
-    <Provider store={store}>
-      <Theme>
-        <Router>
+    <Router>
+      <Provider store={store}>
+        <Theme>
           <App />
-        </Router>
-      </Theme>
-    </Provider>
+        </Theme>
+      </Provider>
+    </Router>
   )
 }
 

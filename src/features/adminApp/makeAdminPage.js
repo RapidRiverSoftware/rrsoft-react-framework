@@ -4,6 +4,7 @@ import styled, { withTheme } from 'styled-components'
 import Topbar from './Topbar'
 import SideMenu from './SideMenu'
 import Content from './Content'
+import memoize from 'lodash/memoize'
 
 const makeAdminPage = (WrappedComponent, logo) => (props) => (
   <Layout>
@@ -40,4 +41,4 @@ const Side = withTheme(styled.div`
   flex-direction: column;
 `)
 
-export default makeAdminPage
+export default memoize(makeAdminPage)

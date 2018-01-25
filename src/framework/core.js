@@ -124,7 +124,10 @@ const core = {
 
         ReactDOM.render(<DefaultApp {...defaultAppOptions} store={this.store} />, rootNode)
         isStarted = true
-        each(dispatchQueue, action => this.store.dispatch(action))
+        each(dispatchQueue, action => {
+          console.log(action)
+          this.store.dispatch(action)
+        })
         console.log("finish installing")
       }
     }
