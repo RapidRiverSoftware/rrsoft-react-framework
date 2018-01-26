@@ -28,26 +28,29 @@ export default {
         9: '30px',
         10: '35px',
       }[n]),
-      primaryMenuTextColor: n => ({
-        1: '#fefefe',
-        2: '#fefefe',
-        3: '#fefefe',
-        4: '#ffffff',
-        5: '#fefefe',
-        6: '#ededed',
-        7: '#fefefe',
-        8: '#fefefe',
-        9: '#fefefe',
-        10: '#fefefe',
-      }[n]),
       primaryMaskBgColor: n => ({
-        5: 'linear-gradient(to top, #360033, #0b8793)'
+        5: 'linear-gradient(to top, #360033, #136a8a)'
+      }[5]),
+      primaryBodyBgColor: n => ({
+        5: 'linear-gradient(165deg, #fbfded 60%, #fefefe)'
+      }[5]),
+      primaryMenuTextColor: n => ({
+        5: '#fefefe',
       }[5]),
       primaryMenuBgColor: n => ({
         5: 'linear-gradient(0deg, #136a8a 5%, #360033 95%)',
       }[5]),
+      primaryMenuActiveBgColor: n => ({
+        5: 'linear-gradient(-150deg, #fbfded, #fefefe)'
+      }[5]),
+      primaryMenuActiveShadow: n => ({
+        5: 'inset 2px 3px 1px -1px #c2c2c2'
+      }[5]),
       primaryTopBarBgColor: n => ({
         5: 'linear-gradient(165deg, #360033 5%, #136a8a 95%)',
+      }[5]),
+      primaryTableBgColor: n => ({
+        5: 'rgba(255,255,255, 0.8)',
       }[5]),
       primaryLabelColor: n => ({
         5: '#b1b1b1',
@@ -56,8 +59,11 @@ export default {
         5: '#00d6be',
       }[5]),
       primaryBorderColor: n => ({
+        2: '#ececec',
+        3: '#d3d3d3',
+        4: '#c2c2c2',
         5: '#b1b1b1',
-      }[5]),
+      }[n]),
       primaryTextColor: n => ({
         5: '#212121',
       }[5]),
@@ -179,6 +185,14 @@ export default {
 
       label {
         cursor: pointer;
+      }
+
+      table {
+        border-spacing: 0;
+      }
+
+      div {
+        box-sizing: border-box;
       }
     `;
 

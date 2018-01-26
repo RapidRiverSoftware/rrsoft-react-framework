@@ -23,8 +23,8 @@ const Side = withTheme(styled.div`
 
     &.active {
       color: ${({ theme }) => theme.primaryTextColor(4)};
-      background-color: rgba(255, 255, 255, 0.99);
-      box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
+      background: ${({ theme }) => theme.primaryMenuActiveBgColor(5)};
+      box-shadow: ${({ theme }) => theme.primaryMenuActiveShadow(5)};
     }
   }
   background: ${({ theme }) => theme.primaryMenuBgColor(5)};

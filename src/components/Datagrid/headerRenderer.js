@@ -7,7 +7,7 @@ const headerRenderer = (columns) => {
     <tr>
       {
         columns.map((col, idx) => (
-          <td key={idx}>{col.label}</td>
+          <th key={idx}>{col.label}</th>
         ))
       }
     </tr>

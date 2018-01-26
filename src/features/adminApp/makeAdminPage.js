@@ -20,6 +20,7 @@ const makeAdminPage = (WrappedComponent, logo) => (props) => (
 const Layout = withTheme(styled.div`
   display: flex;
   flex-direction: row;
+  background: ${({theme}) => theme.primaryBodyBgColor(5)};
 `);
 
 const Body = withTheme(styled.div`
