@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Inputbox from './Inputbox';
-import { gap } from '../../../../style/config';
 
 type Props = {
   icon: React.Element<any>,
@@ -21,7 +20,7 @@ const RelativeBox = styled.div`
 
 const RightIcon = styled.div`
   position: absolute;
-  right: ${gap.xsmall}px;
+  right: 2px;
   bottom: 3px;
   > * {
     display: block;

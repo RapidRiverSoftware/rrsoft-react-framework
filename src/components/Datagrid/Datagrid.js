@@ -22,11 +22,11 @@ type CustomRender = {
 
 type ColumnShape = StandardField | CustomRender;
 
-const Datagrid = ({ columns, data }) => {
+const Datagrid = ({ columns, data, actions }) => {
   return (
     <table border="1">
       <thead>{ headerRenderer(columns) }</thead>
-      <tbody>{ bodyRenderer(columns, data) }</tbody>
+      <tbody>{ bodyRenderer(columns, data, actions) }</tbody>
     </table>
   )
 }

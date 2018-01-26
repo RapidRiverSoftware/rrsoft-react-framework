@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux';
 import styled, { withTheme } from 'styled-components'
 import Topbar from './Topbar'
 import SideMenu from './SideMenu'
@@ -13,7 +12,7 @@ const makeAdminPage = (WrappedComponent, logo) => (props) => (
     </Side>
     <Body>
       <Topbar />
-      <Content component={<WrappedComponent />} />
+      <Content component={<WrappedComponent {...props} />} />
     </Body>
   </Layout>
 )
@@ -21,10 +20,6 @@ const makeAdminPage = (WrappedComponent, logo) => (props) => (
 const Layout = withTheme(styled.div`
   display: flex;
   flex-direction: row;
-`);
-
-const Header = withTheme(styled.div`
-
 `);
 
 const Body = withTheme(styled.div`
