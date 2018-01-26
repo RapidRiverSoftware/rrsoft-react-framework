@@ -47,6 +47,7 @@ const Table = withTheme(styled.div`
     padding: ${({ theme }) => theme.gap(2)}px ${({ theme }) => theme.gap(4)}px;
     text-transform: capitalize;
     text-align: left;
+    border-bottom: 1px solid #212121;
   }
   td {
     padding: ${({ theme }) => theme.gap(2)}px ${({ theme }) => theme.gap(4)}px;
