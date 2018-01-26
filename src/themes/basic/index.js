@@ -5,16 +5,16 @@ export default {
   register(core, options, next) {
     const theme = {
       gap: n => ({
-        1: '5px',
-        2: '5px',
-        3: '10px',
-        4: '15px',
-        5: '20px',
-        6: '25px',
-        7: '30px',
-        8: '35px',
-        9: '40px',
-        10: '50px',
+        1: 5,
+        2: 5,
+        3: 10,
+        4: 15,
+        5: 20,
+        6: 25,
+        7: 30,
+        8: 35,
+        9: 40,
+        10: 50,
       }[n]),
       fontSize: n => ({
         1: '10px',
@@ -40,77 +40,38 @@ export default {
         9: '#fefefe',
         10: '#fefefe',
       }[n]),
+      primaryMaskBgColor: n => ({
+        5: 'linear-gradient(to top, #360033, #0b8793)'
+      }[5]),
       primaryMenuBgColor: n => ({
-        1: '#303e4d',
-        2: '#303e4d',
-        3: '#856dac',
-        4: '#4c3b67',
-        5: '#2c223c',
-        6: '#14101b',
-        7: '#303e4d',
-        8: '#303e4d',
-        9: '#303e4d',
-        10: '#303e4d',
-      }[n]),
+        5: 'linear-gradient(0deg, #136a8a 5%, #360033 95%)',
+      }[5]),
+      primaryTopBarBgColor: n => ({
+        5: 'linear-gradient(165deg, #360033 5%, #136a8a 95%)',
+      }[5]),
       primaryLabelColor: n => ({
-        1: '#a9a9a9',
-        2: '#a9a9a9',
-        3: '#a9a9a9',
-        4: '#a9a9a9',
-        5: '#a9a9a9',
-        6: '#a9a9a9',
-        7: '#a9a9a9',
-        8: '#a9a9a9',
-        9: '#a9a9a9',
-        10: '#a9a9a9',
-      }[n]),
+        5: '#b1b1b1',
+      }[5]),
       secondaryLabelColor: n => ({
-        1: '#009282',
-        2: '#009282',
-        3: '#009282',
-        4: '#009282',
-        5: '#009282',
-        6: '#009282',
-        7: '#009282',
-        8: '#009282',
-        9: '#009282',
-        10: '#009282',
-      }[n]),
+        5: '#00d6be',
+      }[5]),
       primaryBorderColor: n => ({
-        1: '#bababa',
-        2: '#bababa',
-        3: '#bababa',
-        4: '#bababa',
-        5: '#bababa',
-        6: '#bababa',
-        7: '#bababa',
-        8: '#bababa',
-        9: '#bababa',
-        10: '#bababa',
-      }[n]),
+        5: '#b1b1b1',
+      }[5]),
       primaryTextColor: n => ({
-        1: '#212121',
-        2: '#212121',
-        3: '#212121',
-        4: '#212121',
         5: '#212121',
-        6: '#212121',
-        7: '#212121',
-        8: '#212121',
-        9: '#212121',
-        10: '#212121',
-      }[n]),
+      }[5]),
       primaryBgColor: n => ({
-        1: '#003282',
-        2: '#003282',
-        3: '#003282',
-        4: '#009282',
+        1: '#f8fffe',
+        2: '#b4fff7',
+        3: '#00f8dd',
+        4: '#00d6be',
         5: '#009282',
-        6: '#009282',
-        7: '#009282',
-        8: '#009282',
-        9: '#009282',
-        10: '#003282',
+        6: '#007064',
+        7: '#004e46',
+        8: '#001b18',
+        9: '#000a09',
+        10: '#000000',
       }[n]),
       primaryColor: n => ({
         1: '#003282',
@@ -172,6 +133,7 @@ export default {
         letter-spacing: -0.021em;
         font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         color: #212121;
+        background-color: #fefefe;
         font-style: normal;
         margin: 0;
         -webkit-text-size-adjust: 100%;
@@ -189,13 +151,17 @@ export default {
       input[type=submit],
       button[type=submit] {
         border: 0;
-        padding: 15px 20px;
+        padding: 0 20px;
+        height: 50px;
         font-size: 20px;
-        background-color: #82cafa;
-        color: white;
+        background-color: ${theme.primaryBgColor(4)};
+        color: #fefefe;
         cursor: pointer;
         width: 100%;
         font-weight: 500;
+        &:hover {
+          background-color: ${theme.primaryBgColor(3)};
+        }
       }
 
       input[type=submit]:focus,

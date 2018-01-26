@@ -19,15 +19,15 @@ const Side = withTheme(styled.div`
     height: 40px;
     padding: 0 20px;
     font-weight: ${({ theme }) => theme.fontWeight(7)};
+    margin-left: 20px;
 
     &.active {
-      color: ${({ theme }) => theme.primaryMenuTextColor(4)};
-      background-color: ${({ theme }) => theme.primaryMenuBgColor(4)};
+      color: ${({ theme }) => theme.primaryTextColor(4)};
+      background-color: rgba(255, 255, 255, 0.99);
+      box-shadow: 0px 0px 5px rgba(255, 255, 255, 1);
     }
   }
-  background: #2b5876; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #4e4376, #2b5876); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #4e4376, #2b5876);
+  background: ${({ theme }) => theme.primaryMenuBgColor(5)};
 `);
 
 const Menu = styled.div`

@@ -64,7 +64,7 @@ export const apiDelete = (url: string, body = {}, options: Options = {}) =>
   apiGeneric(url, { ...options, body, method: 'DELETE' });
 
 const apiGeneric = (url: string, options: Options = {}) => {
-  const authToken = getCookie('auth_token');
+  const authToken = getCookie('authToken');
 
   const opt = Object.assign({}, defaultOptions, options);
 
