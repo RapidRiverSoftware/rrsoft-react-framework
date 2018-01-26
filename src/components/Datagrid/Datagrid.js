@@ -37,10 +37,7 @@ const Datagrid = ({ columns, data, actions, ...props }) => {
 const Table = withTheme(styled.div`
   font-size: ${({ theme }) => theme.fontSize(4)};
   padding: ${({ theme }) => theme.gap(3)}px ${({ theme }) => theme.gap(4)}px;
-  background-color: ${({ theme }) => theme.primaryTableBgColor(5)};
-  border: 1px solid ${({ theme }) => theme.primaryBorderColor(2)};
-  margin: ${({ theme }) => theme.gap(5)}px;
-  box-shadow: 1px 1px 1px ${({ theme }) => theme.primaryBorderColor(2)};
+  margin: ${({ theme }) => theme.gap(3)}px;
 
   table {
     width: 100%;
