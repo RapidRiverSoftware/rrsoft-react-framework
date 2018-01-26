@@ -32,7 +32,7 @@ export default {
         5: 'linear-gradient(to top, #360033, #136a8a)'
       }[5]),
       primaryBodyBgColor: n => ({
-        5: 'linear-gradient(165deg, #fbfded 60%, #fefefe)'
+        5: 'linear-gradient(165deg, #fdfff3 60%, #fefefe)'
       }[5]),
       primaryMenuTextColor: n => ({
         5: '#fefefe',
@@ -41,7 +41,7 @@ export default {
         5: 'linear-gradient(0deg, #136a8a 5%, #360033 95%)',
       }[5]),
       primaryMenuActiveBgColor: n => ({
-        5: 'linear-gradient(-150deg, #fbfded, #fefefe)'
+        5: 'linear-gradient(-150deg, #fdfff3, #fefefe)'
       }[5]),
       primaryMenuActiveShadow: n => ({
         5: 'inset 2px 3px 1px -1px #c2c2c2'
