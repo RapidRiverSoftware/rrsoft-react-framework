@@ -29,7 +29,7 @@ export default {
         10: '35px',
       }[n]),
       primaryMaskBgColor: n => ({
-        5: 'linear-gradient(to top, #360033, #136a8a)'
+        5: 'linear-gradient(to top, #360033, #0b8793)'
       }[5]),
       primaryBodyBgColor: n => ({
         5: 'linear-gradient(165deg, #fdfff3 60%, #fefefe)'
@@ -38,7 +38,7 @@ export default {
         5: '#fefefe',
       }[5]),
       primaryMenuBgColor: n => ({
-        5: 'linear-gradient(0deg, #136a8a 5%, #360033 95%)',
+        5: 'linear-gradient(0deg, #0b8793 5%, #360033 95%)',
       }[5]),
       primaryMenuActiveBgColor: n => ({
         5: 'linear-gradient(-150deg, #fdfff3, #fefefe)'
@@ -47,7 +47,7 @@ export default {
         5: 'inset 2px 3px 1px -1px #c2c2c2'
       }[5]),
       primaryTopBarBgColor: n => ({
-        5: 'linear-gradient(165deg, #360033 5%, #136a8a 95%)',
+        5: 'linear-gradient(165deg, #360033 5%, #0b8793 95%)',
       }[5]),
       primaryTableBgColor: n => ({
         5: 'rgba(255,255,255, 0.8)',
