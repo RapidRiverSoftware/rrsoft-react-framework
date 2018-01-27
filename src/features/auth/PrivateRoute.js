@@ -21,7 +21,7 @@ const PrivateRoute = ({ component: Component, isLoggedIn = false, ...rest }) => 
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: !!state.getIn(['auth', 'token']) //aaron-todo: switch back
+    isLoggedIn: !!state.getIn(['auth', 'token'])  //aaron-todo: switch back
   }
 };
 
