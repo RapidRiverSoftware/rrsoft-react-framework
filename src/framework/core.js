@@ -133,7 +133,7 @@ const core = {
     }
 
     installCount = -1
-    this.addReducer('routing', routerReducer)
+    this.addReducer('reactRoute', routerReducer)
     this.addReducer('form', formReducer)
 
     next()

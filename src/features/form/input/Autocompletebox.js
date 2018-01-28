@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Autocomplete from 'react-autocomplete';
 import Inputbox from './Inputbox';
-import Box from '../../../components/grouping/Box';
-import { color, gap } from '../../../../style/config';
 
 const initialState = {
   value: '',
@@ -13,26 +11,34 @@ const initialState = {
 
 export default class Autocompletebox extends Component {
   static defaultProps = {
-    onType: (val: string) => {}, // eslint-disable-line
-    onBackspace: (val: string) => {}, // eslint-disable-line
-    onSelect: (item: Object, updateValue: Function) => {}, // eslint-disable-line
-    onFocus: () => {},
+    onType: (val: string) => {
+      console.log(val);
+    },
+    onBackspace: (val: string) => {
+      console.log(val);
+    },
+    onEnter: (item: string) => {
+      console.log(item);
+    },
+    onSelect: (item: string) => {
+      console.log(item);
+    },
+    onFocus: () => {
+      console.log('focus');
+    },
   };
 
   props: {
     items: Array<Object>,
     matchState?: (state: Object, value: string) => boolean,
-    type?: string,
-    name?: string,
     placeholder?: string,
     renderInputWrapper?: (inputComponent: React.Element<any>) => React.Element<any>,
     renderItem?: (item: Object, isHighlighted: boolean) => React.Element<any>,
     onType: Function,
     onSelect: Function,
+    onEnter: Function,
     onFocus: Function,
     onBackspace: Function,
-    onChange?: Function,
-    value?: string,
   };
   input: Object;
   autocompleteRef: Object;
@@ -53,34 +59,21 @@ export default class Autocompletebox extends Component {
     this.updateHeight();
   }
 
-  onChange = (event: any) => {
-    this.updateValue(event.target.value);
-    if (this.props.onChange) {
-      this.props.onChange(event);
-    }
+  updateValue = (e: Object) => {
+    this.props.onType(e.target.value);
+    this.setState({ value: e.target.value });
   };
 
-  updateValue = (val: string) => {
-    this.props.onType(val);
-    this.setState({ value: `${val}` });
+  clearValue = () => {
+    this.props.onType('');
+    this.setState({ value: '' });
   };
 
   updateSelectedItem = (val: string) => {
     const { items, onSelect } = this.props;
-    const selectedItem = items.find(item => item.value.toString() === val.toString());
-    let value = this.props.value || '';
-
-    if (selectedItem !== undefined) {
-      value = selectedItem.value;
-    }
-
-    if (this.props.onChange) {
-      this.props.onChange(value);
-    } else {
-      this.updateValue(value);
-    }
-
-    onSelect(selectedItem, this.updateValue);
+    const selectedItem = items.find(item => (typeof item === 'string' ? item : item.value).toString() === val.toString());
+    onSelect(selectedItem);
+    this.clearValue();
   };
 
   setInputRef = (ref: Object) => {
@@ -102,6 +95,12 @@ export default class Autocompletebox extends Component {
     if (e.which === 8) {
       this.props.onBackspace(e.target.value);
       this.updateHeight();
+    } else if (e.which === 13) {
+      if (e.target.value.toString().length) {
+        e.preventDefault();
+        this.props.onEnter(e.target.value);
+        this.clearValue();
+      }
     }
   };
 
@@ -145,7 +144,7 @@ export default class Autocompletebox extends Component {
   renderMenu = (children: any) => <Menu top={this.state.boxHeight}>{children}</Menu>;
 
   render() {
-    const { items, matchState, type, name, placeholder } = this.props;
+    const { items, matchState, placeholder } = this.props;
     const { value } = this.state;
 
     return (
@@ -153,18 +152,16 @@ export default class Autocompletebox extends Component {
         <Autocomplete
           autoHighlight
           items={items}
-          value={this.props.value || value}
+          value={value}
           getItemValue={this.getItemValue}
           shouldItemRender={matchState || this.matchState}
           renderItem={this.renderItem}
           renderInput={this.renderInput}
           renderMenu={this.renderMenu}
           wrapperStyle={styles.wrapper}
-          onChange={this.onChange}
+          onChange={this.updateValue}
           onSelect={this.updateSelectedItem}
           inputProps={{
-            type,
-            name,
             placeholder,
           }}
         />
@@ -173,8 +170,7 @@ export default class Autocompletebox extends Component {
   }
 }
 
-const Menu = styled(Box)`
-  border: 1px solid ${color.xxxlighterNeutral};
+const Menu = styled.div`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   position: absolute;
   left: 0;
@@ -185,18 +181,14 @@ const Menu = styled(Box)`
 `;
 
 const Item = styled.div`
-  padding: ${gap.small}px;
   cursor: pointer;
 
   ${({ isHighlighted }) => {
     if (isHighlighted) {
       return `
-      background-color: ${color.secondary};
-      color: ${color.white};
     `;
     }
     return `
-      background-color: ${color.white};
       color: black;
     `;
   }};

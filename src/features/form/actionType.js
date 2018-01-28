@@ -1,0 +1,3 @@
+// @flow
+export const FETCH_SUGGESTION = 'form/FETCH_SUGGESTION';
+export const FETCH_SUGGESTION_SUCCESS = 'form/FETCH_SUGGESTION_SUCCESS';

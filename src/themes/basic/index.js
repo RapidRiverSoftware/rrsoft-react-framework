@@ -28,6 +28,9 @@ export default {
         9: '30px',
         10: '35px',
       }[n]),
+      primaryTagBgColor: n => ({
+        5: '#0b8793'
+      }[5]),
       primaryMaskBgColor: n => ({
         5: 'linear-gradient(to top, #360033, #0b8793)'
       }[5]),

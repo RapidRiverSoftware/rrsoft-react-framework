@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
-import styled from 'styled-components';
-import { color } from '../../../../style/config';
-import DismissIcon from '../../../components/icon/Dismiss';
+import styled, { withTheme } from 'styled-components';
+import DismissIcon from '../../../components/Icon/Dismiss';
 
 type Props = {
-  items: Array<{value: string | number, label: string}>,
+  items: Array<{value: string | number, label: string}|string>,
   input: React.Element<any>,
   onTagClick?: Function,
 }
@@ -15,9 +14,9 @@ export default ({ items, input, onTagClick }: Props) => (
     {
       items.map((item, i) => (
         <Tag key={`${i}`} onClick={() => onTagClick && onTagClick(item, i)}>
-          {item.label}
+          {typeof item === 'string' ? item : item.label}
           <Close>
-            <DismissIcon stroke={color.lightNeutral} />
+            <DismissIcon stroke="#000" />
           </Close>
         </Tag>))
     }
@@ -31,18 +30,18 @@ const Close = styled.span`
   top: 0;
 `;
 
-const Tag = styled.span`
+const Tag = withTheme(styled.span`
   position: relative;
   line-height: 30px;
   padding: 0 25px 0 10px;
   white-space: nowrap;
   margin-right: 5px;
   margin-top: 5px;
-  background-color: ${color.xxlightNeutral};
+  background-color: ${({ theme }) => theme.primaryTagBgColor(5)};
   font-weight: 400;
   color: black;
   cursor: pointer;
-`;
+`);
 
 const Input = styled.div`
   margin-top: 16px;
@@ -59,8 +58,6 @@ const TagGroup = styled.div`
   align-items: flex-end;
   border-width: 0 0 1px 0;
   border-style: dashed;
-  border-color: ${color.lightNeutral};
-
   input {
     border: 0;
   }

@@ -1,6 +1,7 @@
 // @flow
 import { Observable } from 'rxjs';
 import { ajax } from 'rxjs/observable/dom/ajax';
+import core from '../../framework/core'
 import fromJSOrdered from '../redux/fromJSOrdered';
 // import { displayErrorMessage } from '../features/error_message/actions';
 
@@ -107,6 +108,11 @@ const apiGeneric = (url: string, options: Options = {}) => {
     .catch((error) => {
       if (error.status === 403) {
         window.location.href = '/login';
+      } else if (error.status === 401 && error.response.code === 'TOKEN_EXPIRED') {
+        core.storage.remove('authToken')
+        core.storage.remove('authName')
+
+        window.location.href = '/login'
       } else if (error.status === 401) {
         return Observable.of({
           error: error.response.message,

@@ -9,7 +9,7 @@ type Props = {
   tagItems: Array<Object>,
   onTagClick: string => void,
   onType: string => void,
-  onSelect: Object => void,
+  onSelect: string => void,
   onFocus: () => void,
   onBackspaceEmpty: () => void,
   onTagChange: (Array<Object>) => void,
@@ -18,8 +18,12 @@ type Props = {
 
 export default class TagAutocompletebox extends Component {
   static defaultProps = {
-    onType: (val: string) => {}, // eslint-disable-line
-    onFocus: () => {},
+    onType: (val: string) => {
+      console.log(val);
+    },
+    onFocus: () => {
+      console.log('focus');
+    },
     onBackspaceEmpty: () => {},
     onTagChange: () => {},
     onSelect: () => {},
@@ -48,7 +52,7 @@ export default class TagAutocompletebox extends Component {
   };
 
   render() {
-    const { suggestItems, renderSuggestItem, onFocus, onSelect, ...props } = this.props;
+    const { suggestItems, renderSuggestItem, onEnter, onSelect, onFocus, ...props } = this.props;
 
     return (
       <Autocompletebox
@@ -58,10 +62,8 @@ export default class TagAutocompletebox extends Component {
         onType={this.handleTyping}
         onBackspace={this.handleBackspace}
         onFocus={onFocus}
-        onSelect={(item, updateValue) => {
-          updateValue('');
-          onSelect(item);
-        }}
+        onSelect={onSelect}
+        onEnter={onEnter}
         {...props}
       />
     );
