@@ -3,6 +3,7 @@ import React from 'react'
 import {
   Route,
   Redirect,
+  withRouter
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -25,4 +26,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(PrivateRoute)
+export default withRouter(connect(mapStateToProps)(PrivateRoute))
