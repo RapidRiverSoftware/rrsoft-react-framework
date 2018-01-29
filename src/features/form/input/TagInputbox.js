@@ -16,7 +16,7 @@ export default ({ items, input, onTagClick }: Props) => (
         <Tag key={`${i}`} onClick={() => onTagClick && onTagClick(item, i)}>
           {typeof item === 'string' ? item : item.label}
           <Close>
-            <DismissIcon stroke="#000" />
+            <DismissIcon stroke="#fefefe" />
           </Close>
         </Tag>))
     }
@@ -38,8 +38,8 @@ const Tag = withTheme(styled.span`
   margin-right: 5px;
   margin-top: 5px;
   background-color: ${({ theme }) => theme.primaryTagBgColor(5)};
+  color: ${({ theme }) => theme.primaryTagTextColor(5)};
   font-weight: 400;
-  color: black;
   cursor: pointer;
 `);
 
@@ -48,6 +48,9 @@ const Input = styled.div`
   margin-left: -5px;
   flex-grow: 1000;
   min-width: 200px;
+  > input {
+    height: 30px;
+  }
 `;
 
 const TagGroup = styled.div`
@@ -57,7 +60,8 @@ const TagGroup = styled.div`
   flex-wrap: wrap;
   align-items: flex-end;
   border-width: 0 0 1px 0;
-  border-style: dashed;
+  border-color: ${({ theme }) => theme.primaryBorderColor(5)};
+  border-style: solid;
   input {
     border: 0;
   }

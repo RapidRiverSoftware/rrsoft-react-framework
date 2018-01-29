@@ -53,6 +53,10 @@ const Table = withTheme(styled.div`
     padding: ${({ theme }) => theme.gap(2)}px ${({ theme }) => theme.gap(4)}px;
     border-top: 1px solid ${({ theme }) => theme.primaryBorderColor(2)};
   }
+
+  button, button.link {
+    font-size: ${({ theme }) => theme.fontSize(3)};
+  }
 `)
 
 export default Datagrid

@@ -33,18 +33,9 @@ const Side = withTheme(styled.div`
 const Menu = styled.div`
 `
 
-const Logo = styled.div`
-  height: 50px;
-  margin-bottom: 20px;
-  padding: 10px 0;
-  box-sizing: border-box;
-  font-size: ${({ theme }) => theme.fontSize(6)};
-`
-
-const SideMenu = ({ mainMenu, logo }) => {
+const SideMenu = ({ mainMenu }) => {
   return (
     <Side>
-      <Logo>{ logo }</Logo>
       <Menu>
         {
           mainMenu.map(item => <NavLink activeClassName="active" key={item.value} to={item.value}>{item.label}</NavLink>)

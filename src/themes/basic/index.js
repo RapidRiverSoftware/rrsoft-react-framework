@@ -28,8 +28,11 @@ export default {
         9: '30px',
         10: '35px',
       }[n]),
+      primaryTagTextColor: n => ({
+        5: '#fefefe'
+      }[5]),
       primaryTagBgColor: n => ({
-        5: '#0b8793'
+        5: '#009282'
       }[5]),
       primaryMaskBgColor: n => ({
         5: 'linear-gradient(to top, #360033, #0b8793)'
@@ -157,17 +160,20 @@ export default {
         margin: 20px 0;
       }
 
-      input[type=submit],
-      button[type=submit] {
+      button {
         border: 0;
         padding: 0 20px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      input[type=submit],
+      button[type=submit] {
         height: 50px;
         font-size: 20px;
         background-color: ${theme.primaryBgColor(4)};
         color: #fefefe;
-        cursor: pointer;
         width: 100%;
-        font-weight: 500;
         &:hover {
           background-color: ${theme.primaryBgColor(3)};
         }
@@ -184,6 +190,13 @@ export default {
       button:disabled {
         cursor: not-allowed;
         background-color: #ccc;
+      }
+
+      button.link {
+        font-size: 20px;
+        background-color: transparent;
+        color: ${theme.primaryColor(5)};
+        padding: 0 10px;
       }
 
       label {
