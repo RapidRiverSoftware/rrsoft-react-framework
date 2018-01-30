@@ -140,6 +140,21 @@ const core = {
   }
 }
 
+const Redirect = ({ to }) => {
+  let redirectUrl;
+  if (typeof to === 'object') {
+    redirectUrl = to.pathname
+  } else {
+    redirectUrl = to
+  }
+
+  document.location.replace(redirectUrl)
+
+  return null
+}
+core.Redirect = Redirect;
+
+
 window.rrcore = core
 
 export default core

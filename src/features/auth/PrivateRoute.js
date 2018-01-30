@@ -2,12 +2,14 @@
 import React from 'react'
 import {
   Route,
-  Redirect,
   withRouter
 } from 'react-router-dom'
 import { connect } from 'react-redux'
+import core from '../../framework/core'
 
 const PrivateRoute = ({ component: Component, isLoggedIn = false, ...rest }) => {
+  const Redirect = core.Redirect;
+  
   return <Route {...rest} render={props => {
     //todo ivan: why <Redirect> doesn't work here
     if (!isLoggedIn) document.location.replace('/login')
