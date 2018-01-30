@@ -6,23 +6,40 @@ import Topbar from './Topbar'
 import SideMenu from './SideMenu'
 import Content from './Content'
 import MenuIcon from '../../components/Icon/Menu'
+import Outside from '../../components/Click/Outside'
 import { AvatarAndName } from '../../components/Avatar'
+import { openMenu, closeMenu } from './action'
+
 
 const mapStateToProps = (state) => ({
-  name: state.getIn(['auth', 'name'])
+  name: state.getIn(['auth', 'name']),
+  menuOpened: state.getIn(['adminApp', 'menuOpened']),
 })
 
-const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps)((props) => (
+const mapDispatchToProps = dispatch => ({
+  openMenu: () => dispatch(openMenu()),
+  closeMenu: () => dispatch(closeMenu())
+});
+
+const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDispatchToProps)((props) => (
   <Layout>
     <Occupy height={50}>
       <Top>
         <Topbar
-          leftCorner={<MenuIcon color="#ffffff" />}
+          leftCorner={<MenuToggle onClick={props.menuOpened ? props.closeMenu : props.openMenu}>
+            <MenuIcon color="#ffffff" />
+          </MenuToggle>}
           logo={logo}
           rightCorner={<AvatarAndName name={props.name} size={40} />} />
       </Top>
     </Occupy>
     <Body>
+      <Outside onClick={props.closeMenu}>
+        <Side opened={props.menuOpened}>
+          <SideMenu />
+        </Side>
+      </Outside>
+      <SideMask opened={props.menuOpened} />
       <Content component={<WrappedComponent {...props} />} />
     </Body>
   </Layout>
@@ -56,7 +73,28 @@ const Side = withTheme(styled.div`
   overflow: overlay;
   display: flex;
   flex-direction: column;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  display: ${({ opened }) => opened ? 'block' : 'none'};
+  box-shadow: 2px -2px 10px rgba(0,0,0,0.4);
+  z-index: 1000;
 `)
+const SideMask = styled.div`
+  position: fixed;
+  width: 100vh;
+  height: 100vh;
+  z-index: 950;
+  top: 50px;
+  left: 0;
+  background-color: rgba(0,0,0,0.8);
+  width: 100%;
+  display: ${({ opened }) => opened ? 'block' : 'none'};
+`
+const MenuToggle = styled.div`
+  cursor: pointer;
+  display: inline-flex;
+`
 
 
 export default memoize(makeAdminPage)

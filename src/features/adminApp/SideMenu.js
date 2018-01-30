@@ -19,7 +19,6 @@ const Side = withTheme(styled.div`
     height: 40px;
     padding: 0 20px;
     font-weight: ${({ theme }) => theme.fontWeight(7)};
-    margin-left: 20px;
 
     &.active {
       color: ${({ theme }) => theme.primaryTextColor(4)};

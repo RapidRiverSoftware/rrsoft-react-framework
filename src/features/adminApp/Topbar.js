@@ -2,8 +2,6 @@
 import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
-import { AvatarAndName } from '../../components/Avatar'
-import Split from '../../components/grouping/Split'
 
 const Topbar = ({ leftCorner, content, rightCorner, logo }) => <Layout>
   <Left>
