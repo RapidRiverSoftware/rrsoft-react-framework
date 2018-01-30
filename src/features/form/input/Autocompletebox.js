@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Autocomplete from 'react-autocomplete';
 import Inputbox from './Inputbox';
 
@@ -113,15 +113,18 @@ export default class Autocompletebox extends Component {
     this.setState({ boxHeight: rect.height });
   };
 
-  getItemValue = (item: Object) => item.value.toString();
+  normalizedItemValue = (item) => typeof item === 'string' ? item : item.value.toString()
+  normalizedItemLabel = (item) => typeof item === 'string' ? item : item.label.toString()
+
+  getItemValue = (item: Object|String) => this.normalizedItemValue(item)
   matchState = (state: Object, value: string) =>
-    state.label.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    this.normalizedItemLabel(state).toLowerCase().indexOf(value.toLowerCase()) !== -1;
 
   renderInput = (props: Object) => {
-    const { renderInputWrapper } = this.props;
+    const { autoFocus, disabled, renderInputWrapper } = this.props;
 
     const input = (
-      <Inputbox {...props} innerRef={this.setInputRef} ref={this.setRealInputRef(props)} />
+      <Inputbox disabled={disabled} autoFocus={autoFocus} {...props} innerRef={this.setInputRef} ref={this.setRealInputRef(props)} />
     );
 
     if (renderInputWrapper) {
@@ -135,8 +138,8 @@ export default class Autocompletebox extends Component {
     const { renderItem } = this.props;
 
     return (
-      <Item key={item.value} isHighlighted={isHighlighted}>
-        {renderItem ? renderItem(item, isHighlighted) : item.label}
+      <Item key={this.normalizedItemValue(item)} isHighlighted={isHighlighted}>
+        {renderItem ? renderItem(item, isHighlighted) : this.normalizedItemLabel(item)}
       </Item>
     );
   };
@@ -170,7 +173,7 @@ export default class Autocompletebox extends Component {
   }
 }
 
-const Menu = styled.div`
+const Menu = withTheme(styled.div`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   position: absolute;
   left: 0;
@@ -178,21 +181,25 @@ const Menu = styled.div`
   width: 100%;
   max-height: 300px;
   overflow: auto;
-`;
+`);
 
-const Item = styled.div`
+const Item = withTheme(styled.div`
+  padding: 10px;
   cursor: pointer;
 
-  ${({ isHighlighted }) => {
+  ${({ isHighlighted, theme }) => {
     if (isHighlighted) {
       return `
-    `;
+        color: ${theme.primaryMenuFocusTextColor(5)};
+        background-color: ${theme.primaryMenuFocusBgColor(5)};
+      `;
     }
     return `
-      color: black;
+      color: ${theme.primaryMenuTextColor(5)};
+      background-color: ${theme.primaryMenuBgColor(5)};
     `;
   }};
-`;
+`);
 
 const styles = {
   wrapper: {

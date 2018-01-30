@@ -13,7 +13,6 @@ const makeEpic = (url) => {
   const loginEpic = (action$: any, store: any) =>
     action$
       .ofType(LOGIN)
-      .do(() => console.log("meowowwww"))
       .mergeMap(action => core.api.post(url, action.data.toJS()))
       .map(val => {
         if (val.status === 401) {

@@ -19,7 +19,7 @@ class TagInputField extends Component {
   }
 
   addTag = item => {
-    this.props.onChange(this.props.value.concat([item]))
+    this.props.onChange(this.props.value.concat([item.value ? item.value : item]))
   }
 
   search = (term) => {
@@ -33,12 +33,12 @@ class TagInputField extends Component {
   }
 
   render() {
+    const { value, ...props } = this.props
+
     return (
       <TagAutocompleteInput
-        tagItems={this.props.value}
-        suggestItems={this.props.suggestItems.map(item => (
-          typeof item === 'string' ? { label: item, value: item } : item
-        ))}
+        tagItems={value}
+        suggestItems={this.props.suggestItems}
         onTagClick={this.removeTag}
         onType={this.search}
         onFocus={this.search}
@@ -46,6 +46,7 @@ class TagInputField extends Component {
         onSelect={this.addTag}
         onEnter={this.addTag}
         placeholder={this.props.placeholder}
+        {...props}
       />
     )
   }

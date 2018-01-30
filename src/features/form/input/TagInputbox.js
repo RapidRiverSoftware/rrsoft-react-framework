@@ -7,17 +7,18 @@ type Props = {
   items: Array<{value: string | number, label: string}|string>,
   input: React.Element<any>,
   onTagClick?: Function,
+  disabled?: Boolean,
 }
 
-export default ({ items, input, onTagClick }: Props) => (
+export default ({ disabled=false, items, input, onTagClick }: Props) => (
   <TagGroup>
     {
       items.map((item, i) => (
-        <Tag key={`${i}`} onClick={() => onTagClick && onTagClick(item, i)}>
+        <Tag disabled={disabled} key={`${i}`} onClick={() => !disabled && onTagClick && onTagClick(item, i)}>
           {typeof item === 'string' ? item : item.label}
-          <Close>
+          {disabled ? null : <Close>
             <DismissIcon stroke="#fefefe" />
-          </Close>
+          </Close>}
         </Tag>))
     }
     <Input>{input}</Input>
@@ -32,29 +33,28 @@ const Close = styled.span`
 
 const Tag = withTheme(styled.span`
   position: relative;
-  line-height: 30px;
-  padding: 0 25px 0 10px;
+  line-height: 25px;
+  padding: 0 ${({ disabled }) => disabled ? '10px' : '25px'} 0 10px;
   white-space: nowrap;
   margin-right: 5px;
   margin-top: 5px;
-  background-color: ${({ theme }) => theme.primaryTagBgColor(5)};
-  color: ${({ theme }) => theme.primaryTagTextColor(5)};
+  background-color: ${({ disabled, theme }) => disabled ? theme.primaryTagDisabledBgColor(5) : theme.primaryTagBgColor(5)};
+  color: ${({ disabled, theme }) => disabled ? theme.primaryTagDisabledTextColor(5) : theme.primaryTagTextColor(5)};
   font-weight: 400;
-  cursor: pointer;
+  cursor: ${({ disabled }) => disabled ? 'default' : 'pointer'};
 `);
 
 const Input = styled.div`
-  margin-top: 16px;
-  margin-left: -5px;
+  margin-top: 15px;
   flex-grow: 1000;
   min-width: 200px;
   > input {
-    height: 30px;
+    height: 25px;
   }
 `;
 
 const TagGroup = styled.div`
-  margin-top: -5px;
+  margin-top: -15px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

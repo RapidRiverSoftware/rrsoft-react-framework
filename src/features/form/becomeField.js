@@ -49,11 +49,11 @@ const becomeReduxFormInput = WrappedInputComponent => (props) => {
   const htmlId = id || `${input.name}-${uuid()}`;
 
   return (
-    <div>
+    <FieldWrap>
       {renderLabel(label, htmlId, active)}
       <WrappedInputComponent id={htmlId} {...input} {...inputProps} isActive={active} />
       <span style={{ color: 'red' }}>{gotError ? error : null}</span>
-    </div>
+    </FieldWrap>
   );
 };
 
@@ -76,5 +76,9 @@ const Label = withTheme(styled.label`
   display: block;
   font-size: ${({ theme }) => theme.fontSize(5)};
 `);
+
+const FieldWrap = styled.div`
+  margin-bottom: 20px;
+`
 
 export default becomeField;

@@ -7,9 +7,12 @@ import {
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const PrivateRoute = ({ component: Component, isLoggedIn = false, ...rest }) => (
-  <Route {...rest} render={props => (
-    isLoggedIn ? (
+const PrivateRoute = ({ component: Component, isLoggedIn = false, ...rest }) => {
+  return <Route {...rest} render={props => {
+    //todo ivan: why <Redirect> doesn't work here
+    if (!isLoggedIn) document.location.replace('/login')
+
+    return isLoggedIn ? (
       <Component {...props} />
     ) : (
       <Redirect to={{
@@ -17,8 +20,8 @@ const PrivateRoute = ({ component: Component, isLoggedIn = false, ...rest }) => 
         state: { from: props.location }
       }}/>
     )
-  )}/>
-)
+  }}/>
+}
 
 const mapStateToProps = (state) => {
   return {

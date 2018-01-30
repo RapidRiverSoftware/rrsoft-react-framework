@@ -4,12 +4,14 @@ import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
 import LoginWidget from './LoginWidget'
 
-const LoginPage = ({ logo }) => <Layout>
+const LoginPage = ({ logo }) => {
+  return <Layout>
   <div>
     <Logo>{logo}</Logo>
     <LoginWidget />
   </div>
-</Layout>
+  </Layout>
+}
 
 const Logo = styled.div`
   transform: scale(1.7);

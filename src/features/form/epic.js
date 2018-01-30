@@ -11,7 +11,6 @@ const fetchSuggestionEpic = (action$: any) => {
     .ofType(FETCH_SUGGESTION)
     .debounceTime(500)
     .switchMap(action => {
-      console.log(action.data.term)
       return core.api.get(action.data.url, {
         term: action.data.term,
       }, {action: action})

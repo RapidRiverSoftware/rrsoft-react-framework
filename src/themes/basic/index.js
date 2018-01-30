@@ -28,23 +28,41 @@ export default {
         9: '30px',
         10: '35px',
       }[n]),
-      primaryTagTextColor: n => ({
+      primaryMenuBgColor: n => ({
         5: '#fefefe'
+      }[5]),
+      primaryMenuTextColor: n => ({
+        5: '#212121'
+      }[5]),
+      primaryMenuFocusBgColor: n => ({
+        5: '#009282'
+      }[5]),
+      primaryMenuFocusTextColor: n => ({
+        5: '#ffffff'
+      }[5]),
+      primaryTagDisabledTextColor: n => ({
+        5: '#656565'
+      }[5]),
+      primaryTagDisabledBgColor: n => ({
+        5: '#d3d3d3'
+      }[5]),
+      primaryTagTextColor: n => ({
+        5: '#ffffff'
       }[5]),
       primaryTagBgColor: n => ({
         5: '#009282'
+      }[5]),
+      secondaryTagTextColor: n => ({
+        5: '#ffffff'
+      }[5]),
+      secondaryTagBgColor: n => ({
+        5: '#b1b1b1'
       }[5]),
       primaryMaskBgColor: n => ({
         5: 'linear-gradient(to top, #360033, #0b8793)'
       }[5]),
       primaryBodyBgColor: n => ({
         5: 'linear-gradient(165deg, #fdfff3 60%, #fefefe)'
-      }[5]),
-      primaryMenuTextColor: n => ({
-        5: '#fefefe',
-      }[5]),
-      primaryMenuBgColor: n => ({
-        5: 'linear-gradient(0deg, #0b8793 5%, #360033 95%)',
       }[5]),
       primaryMenuActiveBgColor: n => ({
         5: 'linear-gradient(-150deg, #fdfff3, #fefefe)'
@@ -201,6 +219,7 @@ export default {
 
       label {
         cursor: pointer;
+        color: ${theme.primaryLabelColor(5)};
       }
 
       table {

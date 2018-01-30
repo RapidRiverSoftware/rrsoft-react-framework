@@ -39,8 +39,8 @@ export default class TagAutocompletebox extends Component {
   }
 
   renderInputWrapper = (inputComponent: React.Element<any>) => {
-    const { tagItems, onTagClick } = this.props;
-    return <TagInputbox onTagClick={onTagClick} items={tagItems} input={inputComponent} />;
+    const { tagItems, disabled, onTagClick } = this.props;
+    return <TagInputbox disabled={disabled} onTagClick={onTagClick} items={tagItems} input={inputComponent} />;
   };
 
   handleTyping = (val: string) => {

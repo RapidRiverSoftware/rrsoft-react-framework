@@ -4,6 +4,7 @@ import reducer from './reducer'
 
 export {default as TextField} from './TextField'
 export {default as TagInputField} from './TagInputField'
+export {default as DisplayOnlyField} from './DisplayOnlyField'
 
 export default {
   register(core, options, next) {
