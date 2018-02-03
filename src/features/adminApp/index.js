@@ -3,6 +3,7 @@ import AppContainer from './AppContainer'
 import auth from '../auth'
 import modal from '../modal'
 import form from '../form'
+import connectedDatagrid from '../connectedDatagrid'
 import reducer from './reducer'
 
 export default {
@@ -11,7 +12,9 @@ export default {
     core.install(auth)
     core.install(modal)
     core.install(form)
-    core.setDefaultApp(AppContainer, { jsLoginUrl: options.jsLoginUrl || '/login' })
+    core.install(connectedDatagrid)
+
+    core.setDefaultApp(AppContainer)
     core.addReducer('adminApp', reducer)
     core.setItem('successLoginUrl', options.successLoginUrl)
     core.setItem('logo', options.logo)

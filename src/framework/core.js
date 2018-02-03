@@ -27,6 +27,7 @@ const reducers = {}
 const epics = []
 const dispatchQueue = []
 const config = {}
+const components = {}
 
 let initialState = {}
 let defaultAppOptions = {}
@@ -41,6 +42,14 @@ const getApiOptions = () => apiOptions;
 
 const core = {
   addReducer(name, reducer) {
+    if (!reducer) {
+      throw new Error("no reducer defined")
+    }
+
+    if(reducers[name]) {
+      throw new Error(`reducer: [${name}] has been added before`)
+    }
+
     reducers[name] = reducer
   },
 
@@ -59,6 +68,21 @@ const core = {
     featureConfigs.push({ register: feature.register, options })
   },
 
+  setComponent(name, component, source = "unknown") {
+    console.log(components)
+    if (components[name]) {
+      throw new Error(`component has been defined before from feature[${source}]`)
+    }
+
+    components[name] = { component, source }
+  },
+
+  component(name) {
+    if (!components[name]) {
+      throw new Error(`component: [${name}] is not defined`)
+    }
+    return components[name].component
+  },
 
   set(name, value) {
     config[name] = value
@@ -112,7 +136,6 @@ const core = {
     const next = () => {
       installCount += 1
       const featureConfig = featureConfigs[installCount]
-      this.addReducer('core', coreReducer)
 
       if (featureConfig) {
         const register = featureConfig.register
@@ -133,6 +156,8 @@ const core = {
     }
 
     installCount = -1
+    
+    this.addReducer('core', coreReducer)
     this.addReducer('reactRoute', routerReducer)
     this.addReducer('form', formReducer)
 
