@@ -34,14 +34,12 @@ const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDi
       </Top>
     </Occupy>
     <Body>
-      <Outside onClick={props.closeMenu}>
-        <Side opened={props.menuOpened}>
-          <SideMenu />
-        </Side>
-      </Outside>
-      <SideMask opened={props.menuOpened} />
+      <Side opened={props.menuOpened}>
+        <SideMenu />
+      </Side>
       <Content component={<WrappedComponent {...props} />} />
     </Body>
+    <SideMask opened={props.menuOpened} onClick={props.closeMenu} />
   </Layout>
 ))
 
