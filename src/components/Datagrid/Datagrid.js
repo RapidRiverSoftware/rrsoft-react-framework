@@ -12,6 +12,8 @@ const pageRange = (currentPage, totalPage) => {
 
   let remainingPage = 9
 
+  let safeGuard = 15
+
   while(remainingPage > 0) {
     if (firstPage > 1) {
       firstPage -= 1
@@ -23,10 +25,13 @@ const pageRange = (currentPage, totalPage) => {
       remainingPage -= 1
     }
 
+    safeGuard--
+    if (safeGuard < 0) {
+      throw new Error(`datagrid pagination is looping too many times, currentPage:[${currentPage}]`)
+    }
+
     if (firstPage <= 1 && lastPage >= totalPage) break;
   }
-  console.log(firstPage)
-  console.log(lastPage)
 
   return { firstPage, lastPage }
 }
