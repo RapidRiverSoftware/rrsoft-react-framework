@@ -9,7 +9,7 @@ import {
 const fetchListEpic = (action$: any, store: any) =>
   action$
     .ofType(FETCH_LIST)
-    .mergeMap(action => core.api.get(action.url))
+    .mergeMap(action => core.api.get(action.url, {}, { action }))
     .map(core.api.responseToAction(FETCH_LIST_SUCCESS))
 
 export default fetchListEpic

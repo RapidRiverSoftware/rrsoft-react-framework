@@ -41,7 +41,7 @@ const Datagrid = ({ pageData, handlePageClick, ...props }) => {
         {...props}
         data={pageData.data}
       />
-      { range(firstPage, lastPage + 1).map(p => <div><a href="#" onClick={() => handlePageClick(p)}>{p}</a></div>) }
+      { range(firstPage, lastPage + 1).map(p => <div key={p}><a href="#" onClick={() => handlePageClick(p)}>{p}</a></div>) }
     </div>
 
   )
