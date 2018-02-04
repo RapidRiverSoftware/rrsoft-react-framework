@@ -28,6 +28,7 @@ const epics = []
 const dispatchQueue = []
 const config = {}
 const components = {}
+const fns = {}
 
 let initialState = {}
 let defaultAppOptions = {}
@@ -69,7 +70,6 @@ const core = {
   },
 
   setComponent(name, component, source = "unknown") {
-    console.log(components)
     if (components[name]) {
       throw new Error(`component has been defined before from feature[${source}]`)
     }
@@ -84,6 +84,21 @@ const core = {
     return components[name].component
   },
 
+  setFn(name, fn, source = "unknown") {
+    if (fns[name]) {
+      throw new Error(`function has been defined before from feature[${source}]`)
+    }
+
+    fns[name] = { fn, source }
+  },
+
+  fn(name) {
+    if (!fns[name]) {
+      throw new Error(`fn: [${name}] is not defined`)
+    }
+    return fns[name].fn
+  },
+
   set(name, value) {
     config[name] = value
   },
@@ -91,7 +106,6 @@ const core = {
   get(name) {
     return config[name]
   },
-
 
   addItem(key, value) {
     if (isStarted) {
@@ -156,7 +170,7 @@ const core = {
     }
 
     installCount = -1
-    
+
     this.addReducer('core', coreReducer)
     this.addReducer('reactRoute', routerReducer)
     this.addReducer('form', formReducer)

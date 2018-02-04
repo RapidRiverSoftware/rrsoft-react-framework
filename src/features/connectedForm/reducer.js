@@ -11,7 +11,7 @@ const handlers = {};
 const initialState = fromJS({});
 
 handlers[FETCH_LIST_SUCCESS] = (state, action) => {
-  return state.set(action.originalAction.url, action.response)
+  return state.set(action.originalAction.name, action.response)
 }
 
 export default createReducer(initialState, handlers);
