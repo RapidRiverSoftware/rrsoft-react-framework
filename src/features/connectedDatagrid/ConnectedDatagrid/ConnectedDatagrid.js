@@ -7,11 +7,11 @@ import toJS from '../../../util/redux/toJS'
 
 class ConnectedDatagridComponent extends React.Component {
   componentDidMount() {
-    this.props.fetchList(this.props.url, this.props.name)
+    this.props.fetchList(this.props.url, this.props.name, 1)
   }
 
   render() {
-    const { actions, pageData, columns } = this.props
+    const { actions, pageData, columns, url, name } = this.props
 
     if (!pageData) return null
 
@@ -22,7 +22,7 @@ class ConnectedDatagridComponent extends React.Component {
           columns={columns}
           pageData={pageData}
           actions={actions}
-          handlePageClick={(p)=>console.log(p)}
+          handlePageClick={(p)=>this.props.fetchList(url, name, p)}
         />
     )
   }
@@ -36,7 +36,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchList: (url, name) => dispatch(action.fetchList(url, name))
+    fetchList: (url, name, currentPage) => dispatch(action.fetchList(url, name, currentPage))
   }
 }
 
