@@ -8,7 +8,6 @@ import * as action from '../action'
 class ConnectedFormComponent extends React.Component {
   componentWillUnmount() {
     this.props.resetData(this.props.url)
-    console.log("i am closing")
   }
 
   render() {

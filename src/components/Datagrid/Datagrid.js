@@ -36,8 +36,26 @@ const pageRange = (currentPage, totalPage) => {
   return { firstPage, lastPage }
 }
 
+const paginateStyle = {
+  display: 'inline-block',
+  paddingLeft: '2px'
+}
+
+
 const Datagrid = ({ pageData, handlePageClick, ...props }) => {
   const { firstPage, lastPage } = pageRange(pageData.current_page, pageData.total_page);
+
+  const renderPagination = (page) => {
+    const item = (page != pageData.current_page) ?
+      <a href="#" onClick={() => handlePageClick(page)}>{page}</a> :
+      page
+
+    return (
+      <div style={paginateStyle} key={page}>
+        {item}
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -45,7 +63,11 @@ const Datagrid = ({ pageData, handlePageClick, ...props }) => {
         {...props}
         data={pageData.data}
       />
-      { range(firstPage, lastPage + 1).map(p => <div key={p}><a href="#" onClick={() => handlePageClick(p)}>{p}</a></div>) }
+      
+      { (firstPage !== lastPage) ?
+        range(firstPage, lastPage + 1).map(p => renderPagination(p)) :
+        null
+      }
     </div>
 
   )
