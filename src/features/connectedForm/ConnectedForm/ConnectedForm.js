@@ -3,9 +3,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import toJS from '../../../util/redux/toJS'
 import { reduxForm } from 'redux-form/immutable'
+import * as action from '../action'
 
 class ConnectedFormComponent extends React.Component {
-  componentDidMount() {
+  componentWillUnmount() {
+    this.props.resetData(this.props.url)
+    console.log("i am closing")
   }
 
   render() {
@@ -19,10 +22,18 @@ const mapStateToProps = (state, props) => {
 
   return {
     form: props.url,
-    initialValues: data
+    initialValues: data,
   }
 }
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetData(url) {
+      dispatch(action.resetData(url))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm()(toJS(ConnectedFormComponent))
 )

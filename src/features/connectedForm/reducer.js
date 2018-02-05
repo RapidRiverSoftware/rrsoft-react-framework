@@ -6,6 +6,7 @@ import {
   EDIT_FORM_SUCCESS,
   SAVE_EDIT,
   SAVE_EDIT_SUCCESS,
+  RESET_DATA
 } from './actionType';
 
 const handlers = {};
@@ -24,6 +25,10 @@ handlers[SAVE_EDIT_SUCCESS] = (state, action) => {
   return state
     .setIn(['fetchedData', action.originalAction.url], undefined)
     .set('isSaveSuccess', true)
+}
+
+handlers[RESET_DATA] = (state, action) => {
+  return state.setIn(['fetchedData', action.url], undefined)
 }
 
 export default createReducer(initialState, handlers);
