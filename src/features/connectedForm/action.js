@@ -1,20 +1,18 @@
 // @flow
 
 import {
-  FETCH_EDIT,
+  SAVE_EDIT,
   EDIT_FORM,
 } from './actionType';
 
-export const fetchEdit = (url, name, currentPage) => ({
-  type: FETCH_EDIT,
+export const saveEdit = (url, id, data) => ({
+  type: SAVE_EDIT,
   url,
-  name,
-  currentPage
+  data,
 });
 
-export const editForm = (url, name, id) => ({
+export const editForm = (url, id) => ({
   type: EDIT_FORM,
   url,
-  name,
-  currentPage
+  id
 });

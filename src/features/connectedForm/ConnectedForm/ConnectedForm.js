@@ -1,43 +1,28 @@
 // @flow
 import React from 'react'
 import { connect } from 'react-redux'
-import * as action from '../action'
-import Datagrid from '../../../components/Datagrid'
 import toJS from '../../../util/redux/toJS'
+import { reduxForm } from 'redux-form/immutable'
 
-class ConnectedDatagridComponent extends React.Component {
+class ConnectedFormComponent extends React.Component {
   componentDidMount() {
-    this.props.fetchList(this.props.url, this.props.name, 1)
   }
 
   render() {
-    const { actions, pageData, columns, url, name } = this.props
-
-    if (!pageData) return null
-
-    console.log('pppd', pageData)
-
-    return (
-        <Datagrid
-          columns={columns}
-          pageData={pageData}
-          actions={actions}
-          handlePageClick={(p)=>this.props.fetchList(url, name, p)}
-        />
-    )
+    return <form onSubmit={this.props.handleSubmit}>{this.props.children}</form>
   }
 }
 
 const mapStateToProps = (state, props) => {
+  let data = state.getIn(['connectedForm', 'fetchedData', props.url, 'data'])
+  data = data ? data.toJS() : undefined
+
   return {
-    pageData: state.getIn(['connectedDatagrid', props.name])
+    form: props.url,
+    initialValues: data
   }
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    fetchList: (url, name, currentPage) => dispatch(action.fetchList(url, name, currentPage))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(ConnectedDatagridComponent))
+export default connect(mapStateToProps)(
+  reduxForm()(toJS(ConnectedFormComponent))
+)

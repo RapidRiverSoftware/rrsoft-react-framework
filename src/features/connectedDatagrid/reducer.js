@@ -8,10 +8,10 @@ import {
 
 const handlers = {};
 
-const initialState = fromJS({});
+const initialState = fromJS({ fetchedData: {} });
 
 handlers[FETCH_LIST_SUCCESS] = (state, action) => {
-  return state.set(action.originalAction.url, action.response)
+  return state.setIn(['fetchedData', action.originalAction.url], action.response)
 }
 
 export default createReducer(initialState, handlers);

@@ -2,14 +2,25 @@
 import core from '../../framework/core'
 
 import {
-  FETCH_LIST,
-  FETCH_LIST_SUCCESS,
+  EDIT_FORM,
+  EDIT_FORM_SUCCESS,
+  SAVE_EDIT,
+  SAVE_EDIT_SUCCESS,
 } from './actionType'
 
 const fetchListEpic = (action$: any, store: any) =>
   action$
-    .ofType(FETCH_LIST)
-    .mergeMap(action => core.api.get(action.url, { currentPage: action.currentPage }, { action }))
-    .map(core.api.responseToAction(FETCH_LIST_SUCCESS))
+    .ofType(EDIT_FORM)
+    .mergeMap(action => core.api.get(`${action.url}/${action.id}`, {}, { action }))
+    .map(core.api.responseToAction(EDIT_FORM_SUCCESS))
 
-export default fetchListEpic
+const saveEditEpic = (action$: any, store: any) =>
+  action$
+    .ofType(SAVE_EDIT)
+    .mergeMap(action => core.api.put(`${action.url}/${action.data.id}`, action.data, { action }))
+    .map(core.api.responseToAction(SAVE_EDIT_SUCCESS))
+
+export default [
+  fetchListEpic,
+  saveEditEpic
+]

@@ -16,19 +16,19 @@ class ConnectedDatagridComponent extends React.Component {
     if (!pageData) return null
 
     return (
-        <Datagrid
-          columns={columns}
-          pageData={pageData}
-          actions={actions}
-          handlePageClick={(p)=>this.props.fetchList(url, p)}
-        />
+      <Datagrid
+        columns={columns}
+        pageData={pageData}
+        actions={actions}
+        handlePageClick={(p)=>this.props.fetchList(url, p)}
+      />
     )
   }
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    pageData: state.getIn(['connectedDatagrid', props.url])
+    pageData: state.getIn(['connectedDatagrid', 'fetchedData', props.url])
   }
 }
 
