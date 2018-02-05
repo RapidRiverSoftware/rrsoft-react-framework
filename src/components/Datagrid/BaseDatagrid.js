@@ -28,7 +28,7 @@ const BaseDatagrid = ({ columns, data, actions, ...props }) => {
     <Table {...props}>
       <table>
         <thead>{ headerRenderer(columns) }</thead>
-        <tbody>{ bodyRenderer(columns, data, actions) }</tbody>
+        <tbody>{ bodyRenderer(columns, data, actions, props) }</tbody>
       </table>
     </Table>
   )

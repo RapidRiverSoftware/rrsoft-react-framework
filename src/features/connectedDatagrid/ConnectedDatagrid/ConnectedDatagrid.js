@@ -11,15 +11,13 @@ class ConnectedDatagridComponent extends React.Component {
   }
 
   render() {
-    const { actions, pageData, columns, url } = this.props
+    const { pageData, url } = this.props
 
     if (!pageData) return null
 
     return (
       <Datagrid
-        columns={columns}
-        pageData={pageData}
-        actions={actions}
+        {...this.props}
         handlePageClick={(p)=>this.props.fetchList(url, p)}
       />
     )

@@ -5,10 +5,11 @@ import {
   EDIT_FORM,
 } from './actionType';
 
-export const saveEdit = (url, id, data) => ({
+export const saveEdit = (url, data, onSuccess) => ({
   type: SAVE_EDIT,
   url,
   data,
+  onSuccess
 });
 
 export const editForm = (url, id) => ({

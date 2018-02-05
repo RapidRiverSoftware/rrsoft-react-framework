@@ -9,28 +9,24 @@ const ConnectedEditFormComponent = (props) => {
   if (!props.hasData) return null
 
   return (
-    <ConnectedForm {...props} onSubmit={(data) => props.saveEdit(props.id, data)}>
+    <ConnectedForm {...props} onSubmit={props.saveEdit}>
       {props.children}
     </ConnectedForm>
   )
 }
 
 const mapStateToProps = (state, props) => {
-  const data = state.getIn(['connectedForm', 'fetchedData', props.url, 'data'])
-  const hasData = !!data
-
-  const id = hasData ? data.get('id') : null
+  const hasData = !!state.getIn(['connectedForm', 'fetchedData', props.url, 'data'])
 
   return {
     hasData,
-    id
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    saveEdit(id, data) {
-      dispatch(action.saveEdit(props.url, id, data.toJS()))
+    saveEdit(data) {
+      dispatch(action.saveEdit(props.url, data.toJS(), props.onSuccess))
     }
   }
 }

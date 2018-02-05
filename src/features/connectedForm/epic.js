@@ -19,6 +19,12 @@ const saveEditEpic = (action$: any, store: any) =>
     .ofType(SAVE_EDIT)
     .mergeMap(action => core.api.put(`${action.url}/${action.data.id}`, action.data, { action }))
     .map(core.api.responseToAction(SAVE_EDIT_SUCCESS))
+    .do(action => {
+      const onSuccess = action.originalAction.onSuccess
+      if (onSuccess) {
+        onSuccess()
+      }
+    })
 
 export default [
   fetchListEpic,

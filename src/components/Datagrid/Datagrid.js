@@ -38,7 +38,6 @@ const pageRange = (currentPage, totalPage) => {
 
 const Datagrid = ({ pageData, handlePageClick, ...props }) => {
   const { firstPage, lastPage } = pageRange(pageData.current_page, pageData.total_page);
-  console.log('pd',pageData)
 
   return (
     <div>

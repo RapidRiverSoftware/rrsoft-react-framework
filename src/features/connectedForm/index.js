@@ -8,12 +8,17 @@ import { editForm } from './action'
 
 export default {
   register(core, options, next) {
+    const doEditForm = (url, id) => {
+      core.setItem('editingId', id)
+      core.dispatch(editForm(url, id))
+    }
+
     console.log("installing connected form")
     core.addReducer('connectedForm', reducer)
     core.addEpic(epic)
     core.setComponent('ConnectedForm', ConnectedForm, "connectedForm")
     core.setComponent('ConnectedEditForm', ConnectedEditForm, "connectedForm")
-    core.setFn('editForm', (url, id) => { core.dispatch(editForm(url, id))})
+    core.setFn('editForm', doEditForm)
     next()
   }
 }

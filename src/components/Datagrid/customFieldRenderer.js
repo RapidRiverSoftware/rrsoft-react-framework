@@ -1,7 +1,7 @@
 // @flow
 
-const customFieldRenderer = (col, row, actions) => {
-  return col.render(row, actions)
+const customFieldRenderer = (col, row, actions, props) => {
+  return col.render(row, actions, props)
 }
 
 export default customFieldRenderer

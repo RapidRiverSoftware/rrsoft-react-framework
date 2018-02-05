@@ -19,7 +19,8 @@ class TagInputField extends Component {
   }
 
   addTag = item => {
-    this.props.onChange(this.props.value.concat([item.value ? item.value : item]))
+    const value = this.props.value || []
+    this.props.onChange(value.concat([item.value ? item.value : item]))
   }
 
   search = (term) => {

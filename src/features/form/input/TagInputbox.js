@@ -10,20 +10,23 @@ type Props = {
   disabled?: Boolean,
 }
 
-export default ({ disabled=false, items, input, onTagClick }: Props) => (
-  <TagGroup>
-    {
-      items.map((item, i) => (
-        <Tag disabled={disabled} key={`${i}`} onClick={() => !disabled && onTagClick && onTagClick(item, i)}>
-          {typeof item === 'string' ? item : item.label}
-          {disabled ? null : <Close>
-            <DismissIcon stroke="#fefefe" />
-          </Close>}
-        </Tag>))
-    }
-    <Input>{input}</Input>
-  </TagGroup>
-);
+export default ({ disabled=false, items, input, onTagClick }: Props) => {
+  console.log('i',items)
+  return (
+    <TagGroup>
+      {
+        items ? items.map((item, i) => (
+          <Tag disabled={disabled} key={`${i}`} onClick={() => !disabled && onTagClick && onTagClick(item, i)}>
+            {typeof item === 'string' ? item : item.label}
+            {disabled ? null : <Close>
+              <DismissIcon stroke="#fefefe" />
+            </Close>}
+          </Tag>)) : null
+      }
+      <Input>{input}</Input>
+    </TagGroup>
+  )
+};
 
 const Close = styled.span`
   position: absolute;
