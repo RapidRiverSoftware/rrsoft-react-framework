@@ -134,6 +134,5 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
