@@ -44,7 +44,7 @@ export default {
         5: '#656565'
       }[5]),
       primaryTagDisabledBgColor: n => ({
-        5: '#d3d3d3'
+        5: '#ececec'
       }[5]),
       primaryTagTextColor: n => ({
         5: '#ffffff'
@@ -56,7 +56,7 @@ export default {
         5: '#ffffff'
       }[5]),
       secondaryTagBgColor: n => ({
-        5: '#b1b1b1'
+        5: '#c2c2c2'
       }[5]),
       primaryMaskBgColor: n => ({
         5: 'linear-gradient(to bottom, #21252b, #212121)'

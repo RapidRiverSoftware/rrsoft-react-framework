@@ -57,7 +57,7 @@ const Input = styled.div`
 `;
 
 const TagGroup = styled.div`
-  margin-top: -15px;
+  margin-top: -5px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

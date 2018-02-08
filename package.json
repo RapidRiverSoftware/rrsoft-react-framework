@@ -77,7 +77,7 @@
     "build:docs": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "build:css": "cpx \"./src/components/**/*.css\" ./lib",
-    "prebuild:lib": "rm -rf lib",
+    "prebuild:lib": "rimraf lib",
     "build:lib": "npm-run-all --parallel build:commonjs build:css build:copy-files",
     "build:copy-files": "node scripts/copyBuildFiles.js",
     "predeploy:docs": "npm run build:docs",
