@@ -6,7 +6,6 @@ import Topbar from './Topbar'
 import SideMenu from './SideMenu'
 import Content from './Content'
 import MenuIcon from '../../components/Icon/Menu'
-import Outside from '../../components/Click/Outside'
 import { AvatarAndName } from '../../components/Avatar'
 import { openMenu, closeMenu } from './action'
 
@@ -35,7 +34,7 @@ const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDi
     </Occupy>
     <Body>
       <Side opened={props.menuOpened}>
-        <SideMenu />
+        <SideMenu onItemClick={props.closeMenu} />
       </Side>
       <Content component={<WrappedComponent {...props} />} />
     </Body>

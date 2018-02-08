@@ -32,12 +32,19 @@ const Side = withTheme(styled.div`
 const Menu = styled.div`
 `
 
-const SideMenu = ({ mainMenu }) => {
+const SideMenu = ({ mainMenu, onItemClick }) => {
+  const onClick = t => () => onItemClick(t)
   return (
     <Side>
       <Menu>
         {
-          mainMenu.map(item => <NavLink activeClassName="active" key={item.value} to={item.value}>{item.label}</NavLink>)
+          mainMenu.map(item => <NavLink
+            onClick={onClick(item)}
+            activeClassName="active"
+            key={item.value}
+            to={item.value}>
+            {item.label}
+          </NavLink>)
         }
       </Menu>
     </Side>
