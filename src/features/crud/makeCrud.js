@@ -2,19 +2,29 @@
 import React from 'react'
 import core from 'rrrjs/lib/framework/core'
 import { connect } from 'react-redux'
-import { connectModal } from 'rrrjs/lib/features/modal'
+import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 
 
-const mapStateToProps = state => {
-  return {
-    siteId: state.getIn(['connectedForm', 'fetchedData', '/url_maps', 'data', 'site_id'])
-  }
-}
 
-const makeCrud = ({ url, list, edit, add }) => {
+const makeCrud = ({ title, url, list, edit, add }) => {
   const EditForm = edit && edit.form
+  const editMapStateToProps = edit && edit.mapStateToProps
+  const columns = list && list.columns
 
-  const EditFormContainer = (props) => {
+  const makeClick = (id, openModal) => () => {
+    core.fn('editForm')(url, id)
+    openModal(url)
+  }
+
+  const rowActions = (row, actions, props) => {
+    return <button className="link" onClick={makeClick(row.id, props.openModal)}>Edit</button>
+  }
+
+  if (columns) {
+    columns.push({ label: 'actions', render: rowActions })
+  }
+
+  const EditFormContainer = connectModal(connect(editMapStateToProps)((props) => {
     const ConnectedEditForm = core.component('ConnectedEditForm')
 
     const onSuccessEdit = () => {
@@ -23,12 +33,14 @@ const makeCrud = ({ url, list, edit, add }) => {
     }
 
     return (
-      <ConnectedEditForm url={url} onSuccess={onSuccessEdit}>
-        <EditForm {...props} />
-        <button type="submit">Save</button>
-      </ConnectedEditForm>
+      <Modal id={url}>
+        <ConnectedEditForm url={url} onSuccess={onSuccessEdit}>
+          <EditForm {...props} />
+          <button type="submit">Save</button>
+        </ConnectedEditForm>
+      </Modal>
     )
-  }
+  }))
 
   const ListContainer = connectModal((props) => {
     const ConnectedDatagrid = core.component('ConnectedDatagrid')
@@ -45,7 +57,7 @@ const makeCrud = ({ url, list, edit, add }) => {
   const CrudComponent = (props) => {
     return (
       <div>
-        i am crud
+        <h1>{title}</h1>
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
       </div>
