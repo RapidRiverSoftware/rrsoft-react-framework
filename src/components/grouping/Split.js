@@ -17,6 +17,7 @@ const StyledComponent = styled.div`
   flex-direction: row;
   width: 100%;
   > *:first-child {
+    margin-right: ${({ gap }) => gap || 0}px;
     flex: ${({ push }: Props) => (push === 'left' ? '0 0 auto' : '1 1')};
   }
   > *:last-child {
