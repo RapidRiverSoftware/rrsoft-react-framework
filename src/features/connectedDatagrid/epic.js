@@ -12,7 +12,15 @@ const fetchListEpic = (action$: any, store: any) => {
     .ofType(FETCH_LIST)
     .mergeMap(action => {
       const state = store.getState()
-      const searchTerm = formValueSelector('search')(state, 'url', 'something')
+
+      let searchTerm
+      if (action.searchFields) {
+        const searchArgs = [state, ...action.searchFields, ""]
+        searchTerm =  formValueSelector('search').apply(null, searchArgs)
+      } else {
+        searchTerm = {}
+      }
+
       return core.api.get(action.url, { ...searchTerm, currentPage: action.currentPage }, { action })
     })
     .map(core.api.responseToAction(FETCH_LIST_SUCCESS))

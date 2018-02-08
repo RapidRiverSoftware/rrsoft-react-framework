@@ -10,7 +10,6 @@ const makeCrud = ({ title, url, list, edit, add }) => {
   const EditForm = edit && edit.form
   const editMapStateToProps = edit && edit.mapStateToProps
   const columns = list && list.columns
-  const SearchForm = list && list.SearchForm
 
   const makeClick = (id, openModal) => () => {
     core.fn('editForm')(url, id)
@@ -51,7 +50,8 @@ const makeCrud = ({ title, url, list, edit, add }) => {
         openModal={props.openModal}
         url={url}
         columns={list.columns}
-        searchForm={SearchForm}
+        searchForm={list.SearchForm}
+        searchFields={list.searchFields}
       />
     )
   })

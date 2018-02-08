@@ -13,16 +13,22 @@ class ConnectedDatagridComponent extends React.Component {
   }
 
   render() {
-    const { pageData, url, searchForm, fetchList } = this.props
+    const { pageData, url, searchForm, fetchList, searchFields } = this.props
 
     if (!pageData) return null
 
     return (
       <div>
-        <SearchFormContainer fetchList={this.props.fetchList} url={url} searchForm={searchForm} />
+        <SearchFormContainer
+          fetchList={this.props.fetchList}
+          url={url}
+          searchForm={searchForm}
+          searchFields={searchFields}
+        />
+
         <Datagrid
           {...this.props}
-          handlePageClick={(p) => fetchList(url, p)}
+          handlePageClick={(p) => fetchList(url, p, searchFields)}
         />
       </div>
     )
@@ -37,7 +43,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchList: (url, currentPage) => dispatch(action.fetchList(url, currentPage))
+    fetchList: (url, currentPage, searchFields) => dispatch(action.fetchList(url, currentPage, searchFields))
   }
 }
 
@@ -54,9 +60,9 @@ let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
 
 InnerSearchForm = reduxForm({ form: 'search' })(InnerSearchForm)
 
-const SearchFormContainer = ({ fetchList, url, searchForm }) => {
+const SearchFormContainer = ({ fetchList, url, searchForm, searchFields }) => {
   const onSubmit = (value) => {
-    fetchList(url, 1)
+    fetchList(url, 1, searchFields)
   }
 
   return <InnerSearchForm onSubmit={onSubmit} searchForm={searchForm} />

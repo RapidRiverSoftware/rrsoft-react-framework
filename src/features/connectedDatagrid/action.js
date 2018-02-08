@@ -4,8 +4,9 @@ import {
   FETCH_LIST,
 } from './actionType';
 
-export const fetchList = (url, currentPage) => ({
+export const fetchList = (url, currentPage, searchFields) => ({
   type: FETCH_LIST,
   url,
-  currentPage
+  currentPage,
+  searchFields
 });
