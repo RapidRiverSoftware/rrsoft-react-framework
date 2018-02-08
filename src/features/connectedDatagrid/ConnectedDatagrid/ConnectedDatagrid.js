@@ -52,7 +52,7 @@ let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
     <div>
       <form onSubmit={handleSubmit}>
         <SearchForm />
-        <input type="submit" name="do_action" value="Search" />
+        <input type="submit" name="doAction" value="Search" />
       </form>
     </div>
   )
