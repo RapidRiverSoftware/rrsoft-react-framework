@@ -18,6 +18,7 @@ export default {
     core.addEpic(epic)
     core.setComponent('ConnectedForm', ConnectedForm, "connectedForm")
     core.setComponent('ConnectedEditForm', ConnectedEditForm, "connectedForm")
+    core.setComponent('ConnectedAddForm', ConnectedEditForm, "connectedAddForm")
     core.setFn('editForm', doEditForm)
     next()
   }
