@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import * as action from '../action'
 import Datagrid from '../../../components/Datagrid'
 import toJS from '../../../util/redux/toJS'
-import { TextField } from '../../../features/form'
 import {reduxForm} from 'redux-form/immutable'
 
 
