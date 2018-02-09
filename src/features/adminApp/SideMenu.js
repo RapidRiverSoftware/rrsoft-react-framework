@@ -1,7 +1,6 @@
 // @flow
 import React from 'react'
 import { connect } from 'react-redux'
-import { List } from 'immutable'
 import { NavLink } from 'react-router-dom'
 import styled, { withTheme } from 'styled-components'
 
