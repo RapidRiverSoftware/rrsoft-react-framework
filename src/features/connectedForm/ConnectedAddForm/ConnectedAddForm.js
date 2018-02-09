@@ -5,9 +5,9 @@ import * as action from '../action'
 import ConnectedForm from '../ConnectedForm'
 
 
-const ConnectedEditFormComponent = (props) => {
+const ConnectedAddFormComponent = (props) => {
   if (!props.hasData) return null
-  
+
   return (
     <ConnectedForm {...props} onSubmit={props.saveAdd}>
       {props.children}
@@ -17,7 +17,7 @@ const ConnectedEditFormComponent = (props) => {
 
 
 const mapStateToProps = (state, props) => {
-  const hasData = !!state.getIn(['connectedForm', 'fetchedData', props.url, 'data'])
+  const hasData = !!state.getIn(['connectedForm', 'fetchedData', props.url])
 
   return {
     hasData,
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectedEditFormComponent)
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectedAddFormComponent)

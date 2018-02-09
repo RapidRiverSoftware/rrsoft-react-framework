@@ -4,8 +4,6 @@ import core from 'rrrjs/lib/framework/core'
 import { connect } from 'react-redux'
 import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 
-
-
 const makeCrud = ({ title, url, list, edit, add }) => {
   const EditForm = edit && edit.EditForm
   const editMapStateToProps = edit && edit.mapStateToProps
@@ -15,56 +13,59 @@ const makeCrud = ({ title, url, list, edit, add }) => {
 
   const columns = list && list.columns
 
-  const makeClick = (id, openModal) => () => {
+  const addUrl = `add:${url}`
+  const editUrl = `edit:${url}`
+
+  const clickEditForm = (id, openModal) => () => {
     core.fn('editForm')(url, id)
-    openModal(url)
+    openModal(editUrl)
   }
 
   const rowActions = (row, actions, props) => {
-    return <button className="link" onClick={makeClick(row.id, props.openModal)}>Edit</button>
+    return <button className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>
   }
 
   if (columns) {
     columns.push({ label: 'actions', render: rowActions })
   }
 
-  const EditFormContainer = connectModal(connect(editMapStateToProps)((props) => {
+  const EditFormContainer = connect(editMapStateToProps)((props) => {
     const ConnectedEditForm = core.component('ConnectedEditForm')
 
     const onSuccessEdit = () => {
-      props.closeModal(url)
+      props.closeModal(editUrl)
       core.fn('refreshFetch')(url)
     }
 
     return (
-      <Modal id={url}>
+      <Modal id={editUrl}>
         <ConnectedEditForm url={url} onSuccess={onSuccessEdit}>
           <EditForm {...props} />
           <button type="submit">Save</button>
         </ConnectedEditForm>
       </Modal>
     )
-  }))
+  })
 
-  const AddFormContainer = connectModal(connect(addMapStateToProps)((props) => {
+  const AddFormContainer = connect(addMapStateToProps)((props) => {
     const ConnectedAddForm = core.component('ConnectedAddForm')
 
     const onSuccessAdd = () => {
-      props.closeModal(url)
+      props.closeModal(addUrl)
       core.fn('refreshFetch')(url)
     }
 
     return (
-      <Modal id={url}>
+      <Modal id={addUrl}>
         <ConnectedAddForm url={url} onSuccess={onSuccessAdd}>
           <AddForm {...props} />
           <button type="submit">Save</button>
         </ConnectedAddForm>
       </Modal>
     )
-  }))
+  })
 
-  const ListContainer = connectModal((props) => {
+  const ListContainer = (props) => {
     const ConnectedDatagrid = core.component('ConnectedDatagrid')
 
     return (
@@ -76,18 +77,24 @@ const makeCrud = ({ title, url, list, edit, add }) => {
         searchFields={list.searchFields}
       />
     )
-  })
+  }
 
-  const CrudComponent = (props) => {
+  const clickAddForm = (openModal) => () => {
+    core.fn('addForm')(url)
+    openModal(addUrl)
+  }
+
+  const CrudComponent = connectModal((props) => {
     return (
       <div>
         <h1>{title}</h1>
+        <button onClick={clickAddForm(props.openModal)}>Add New</button>
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
         {AddForm ? <AddFormContainer {...props} /> : null}
       </div>
     )
-  }
+  })
 
   return CrudComponent
 }

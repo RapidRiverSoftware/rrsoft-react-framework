@@ -2,6 +2,7 @@
 
 import {
   SAVE_EDIT,
+  SAVE_ADD,
   EDIT_FORM,
   RESET_DATA,
   ADD_FORM
@@ -9,6 +10,13 @@ import {
 
 export const saveEdit = (url, data, onSuccess) => ({
   type: SAVE_EDIT,
+  url,
+  data,
+  onSuccess
+});
+
+export const saveAdd = (url, data, onSuccess) => ({
+  type: SAVE_ADD,
   url,
   data,
   onSuccess

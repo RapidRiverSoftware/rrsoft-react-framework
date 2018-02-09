@@ -6,6 +6,8 @@ import {
   EDIT_FORM_SUCCESS,
   SAVE_EDIT,
   SAVE_EDIT_SUCCESS,
+  SAVE_ADD,
+  SAVE_ADD_SUCCESS,
 } from './actionType'
 
 const fetchListEpic = (action$: any, store: any) =>
@@ -26,7 +28,20 @@ const saveEditEpic = (action$: any, store: any) =>
       }
     })
 
+const saveAddEpic = (action$: any, store: any) =>
+  action$
+    .ofType(SAVE_ADD)
+    .mergeMap(action => core.api.post(action.url, action.data, { action }))
+    .map(core.api.responseToAction(SAVE_ADD_SUCCESS))
+    .do(action => {
+      const onSuccess = action.originalAction.onSuccess
+      if (onSuccess) {
+        onSuccess()
+      }
+    })
+
 export default [
   fetchListEpic,
-  saveEditEpic
+  saveEditEpic,
+  saveAddEpic
 ]
