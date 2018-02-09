@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import StandardModal from './StandardModal';
-import { connectModal as connectModalImport } from './Modal';
+import Modal from './Modal';
+export { connectModal } from './Modal';
 
 type Props = {|
   id: string,
@@ -10,11 +10,10 @@ type Props = {|
 |};
 
 const YesNoModalComponent = ({ id, text, action }: Props) => (
-  <StandardModal id={id} primaryAction={['YES', action]}>
+  <Modal id={id} primaryAction={['YES', action]}>
     {text}
-  </StandardModal>
+  </Modal>
 );
 
-export const connectModal = connectModalImport;
 
 export default YesNoModalComponent;

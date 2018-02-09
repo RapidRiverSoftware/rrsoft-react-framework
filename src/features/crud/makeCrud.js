@@ -21,8 +21,15 @@ const makeCrud = ({ title, url, list, edit, add }) => {
     openModal(editUrl)
   }
 
+  const clickDelete = (id) => () => {
+    console.log('delete', id)
+  }
+
   const rowActions = (row, actions, props) => {
-    return <button className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>
+    return [
+      <button className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>,
+      <button className="link" onClick={clickDelete(row.id)}>Delete</button>
+    ]
   }
 
   if (columns) {
