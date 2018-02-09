@@ -8,8 +8,8 @@ export default {
   register(core, options, next) {
     console.log("installing crud")
 
-    const doDeleteRow = (url, id) => {
-      core.dispatch(deleteRow(url, id))
+    const doDeleteRow = (url, id, onSuccess) => {
+      core.dispatch(deleteRow(url, id, onSuccess))
     }
 
     core.addReducer('crud', reducer)

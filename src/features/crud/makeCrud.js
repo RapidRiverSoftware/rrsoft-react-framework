@@ -32,8 +32,8 @@ const makeCrud = ({ title, url, list, edit, add }) => {
 
   const rowActions = (row, actions, props) => {
     return [
-      <button className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>,
-      <button className="link" onClick={clickDelete(row.id)}>Delete</button>
+      <button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>,
+      <button key="delete" className="link" onClick={clickDelete(row.id)}>Delete</button>
     ]
   }
 
