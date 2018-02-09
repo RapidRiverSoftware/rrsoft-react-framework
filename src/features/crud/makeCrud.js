@@ -4,7 +4,7 @@ import core from 'rrrjs/lib/framework/core'
 import { connect } from 'react-redux'
 import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 
-const makeCrud = ({ title, url, list, edit, add }) => {
+const makeCrud = ({ title, url, list, edit, add, destroy }) => {
   const EditForm = edit && edit.EditForm
   const editMapStateToProps = edit && edit.mapStateToProps
 
@@ -15,7 +15,6 @@ const makeCrud = ({ title, url, list, edit, add }) => {
 
   const addUrl = `add:${url}`
   const editUrl = `edit:${url}`
-
 
   const clickEditForm = (id, openModal) => () => {
     core.fn('editForm')(url, id)
@@ -31,10 +30,15 @@ const makeCrud = ({ title, url, list, edit, add }) => {
   }
 
   const rowActions = (row, actions, props) => {
-    return [
+    const items = [
       <button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>,
-      <button key="delete" className="link" onClick={clickDelete(row.id)}>Delete</button>
     ]
+
+    if (destroy) {
+      items.push(<button key="delete" className="link" onClick={clickDelete(row.id)}>Delete</button>)
+    }
+    
+    return items
   }
 
   if (columns) {
