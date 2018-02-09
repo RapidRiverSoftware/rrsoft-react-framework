@@ -156,12 +156,68 @@ export default {
     core.setState({ core: { theme } })
 
     injectGlobal`
+      @font-face {
+      	font-family: system-ui;
+      	font-style: normal;
+      	font-weight: 300;
+      	src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Segoe UI Light"), local("Ubuntu Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: italic;
+      	font-weight: 300;
+      	src: local(".SFNSText-LightItalic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Light Italic"), local("Ubuntu Light Italic"), local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: normal;
+      	font-weight: 400;
+      	src: local(".SFNSText-Regular"), local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"), local("Segoe UI"), local("Ubuntu"), local("Roboto-Regular"), local("DroidSans"), local("Tahoma");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: italic;
+      	font-weight: 400;
+      	src: local(".SFNSText-Italic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Italic"), local("Ubuntu Italic"), local("Roboto-Italic"), local("DroidSans"), local("Tahoma");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: normal;
+      	font-weight: 500;
+      	src: local(".SFNSText-Medium"), local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold"), local("Ubuntu Medium"), local("Roboto-Medium"), local("DroidSans-Bold"), local("Tahoma Bold");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: italic;
+      	font-weight: 500;
+      	src: local(".SFNSText-MediumItalic"), local(".HelveticaNeueDeskInterface-MediumItalicP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold Italic"), local("Ubuntu Medium Italic"), local("Roboto-MediumItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: normal;
+      	font-weight: 700;
+      	src: local(".SFNSText-Bold"), local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"), local("Segoe UI Bold"), local("Ubuntu Bold"), local("Roboto-Bold"), local("DroidSans-Bold"), local("Tahoma Bold");
+      }
+
+      @font-face {
+      	font-family: system-ui;
+      	font-style: italic;
+      	font-weight: 700;
+      	src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+      }
+
       body {
         font-size: 17px;
         line-height: 1.52947;
         font-weight: 400;
         letter-spacing: -0.021em;
-        font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-family: "system-ui";
         color: #212121;
         background-color: #fefefe;
         font-style: normal;
@@ -176,6 +232,10 @@ export default {
         font-size: 30px;
         font-weight: 500;
         margin: 20px 0;
+      }
+
+      input,button,select {
+        font-family: "system-ui";
       }
 
       button {

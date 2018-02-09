@@ -3,6 +3,7 @@ import createHistory from 'history/createBrowserHistory'
 import { combineReducers } from 'redux-immutable'
 import { reducer as formReducer } from 'redux-form/immutable'
 import { routerReducer } from 'react-router-redux';
+import { NavLink } from 'react-router-dom'
 import { combineEpics } from 'redux-observable';
 import { fromJS } from 'immutable'
 import React from 'react'
@@ -191,7 +192,8 @@ const Redirect = ({ to }) => {
 
   return null
 }
-core.Redirect = Redirect;
+core.Redirect = Redirect
+core.NavLink = NavLink
 
 
 window.rrcore = core
