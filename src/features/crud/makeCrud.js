@@ -16,13 +16,18 @@ const makeCrud = ({ title, url, list, edit, add }) => {
   const addUrl = `add:${url}`
   const editUrl = `edit:${url}`
 
+
   const clickEditForm = (id, openModal) => () => {
     core.fn('editForm')(url, id)
     openModal(editUrl)
   }
 
+  const onSuccessDelete = () => {
+    core.fn('refreshFetch')(url)
+  }
+
   const clickDelete = (id) => () => {
-    console.log('delete', id)
+    core.fn('deleteRow')(url, id, onSuccessDelete)
   }
 
   const rowActions = (row, actions, props) => {
