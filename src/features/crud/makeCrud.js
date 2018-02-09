@@ -7,8 +7,12 @@ import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 
 
 const makeCrud = ({ title, url, list, edit, add }) => {
-  const EditForm = edit && edit.form
+  const EditForm = edit && edit.EditForm
   const editMapStateToProps = edit && edit.mapStateToProps
+
+  const AddForm = add && add.AddForm
+  const addMapStateToProps = add && add.mapStateToProps
+
   const columns = list && list.columns
 
   const makeClick = (id, openModal) => () => {
@@ -42,6 +46,24 @@ const makeCrud = ({ title, url, list, edit, add }) => {
     )
   }))
 
+  const AddFormContainer = connectModal(connect(addMapStateToProps)((props) => {
+    const ConnectedAddForm = core.component('ConnectedAddForm')
+
+    const onSuccessAdd = () => {
+      props.closeModal(url)
+      core.fn('refreshFetch')(url)
+    }
+
+    return (
+      <Modal id={url}>
+        <ConnectedAddForm url={url} onSuccess={onSuccessAdd}>
+          <AddForm {...props} />
+          <button type="submit">Save</button>
+        </ConnectedAddForm>
+      </Modal>
+    )
+  }))
+
   const ListContainer = connectModal((props) => {
     const ConnectedDatagrid = core.component('ConnectedDatagrid')
 
@@ -62,6 +84,7 @@ const makeCrud = ({ title, url, list, edit, add }) => {
         <h1>{title}</h1>
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
+        {AddForm ? <AddFormContainer {...props} /> : null}
       </div>
     )
   }
