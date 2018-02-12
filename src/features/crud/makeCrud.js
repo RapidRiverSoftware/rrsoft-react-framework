@@ -30,14 +30,16 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
   }
 
   const rowActions = (row, actions, props) => {
-    const items = [
-      <button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>,
-    ]
+    const items = []
+    
+    if (edit) {
+      items.push(<button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>)
+    }
 
     if (destroy) {
       items.push(<button key="delete" className="link" onClick={clickDelete(row.id)}>Delete</button>)
     }
-    
+
     return items
   }
 
@@ -104,7 +106,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
     return (
       <div>
         <h1>{title}</h1>
-        <button onClick={clickAddForm(props.openModal)}>Add New</button>
+        {AddForm ? <button onClick={clickAddForm(props.openModal)}>Add New</button> : null}
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
         {AddForm ? <AddFormContainer {...props} /> : null}

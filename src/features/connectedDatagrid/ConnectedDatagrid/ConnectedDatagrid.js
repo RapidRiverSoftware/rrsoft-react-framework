@@ -19,12 +19,16 @@ class ConnectedDatagridComponent extends React.Component {
 
     return (
       <div>
-        <SearchFormContainer
-          fetchList={this.props.fetchList}
-          url={url}
-          searchForm={searchForm}
-          searchFields={searchFields}
-        />
+
+        { searchForm ?
+            <SearchFormContainer
+              fetchList={this.props.fetchList}
+              url={url}
+              searchForm={searchForm}
+              searchFields={searchFields}
+            /> :
+            null
+        }
 
         <Datagrid
           {...this.props}
