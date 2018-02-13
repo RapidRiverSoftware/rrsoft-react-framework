@@ -15,7 +15,7 @@ const renderCell = (col, row, actions, props) => {
 const bodyRenderer = (columns, data, actions, props) => {
   return data.map((row, ridx) => (
     <tr key={ridx}>
-      { columns.map((col, cidx) => <td key={cidx}>{ renderCell(col, row, actions, props) }</td>) }
+      { columns.map((col, cidx) => <td key={cidx} style={{verticalAlign: 'top'}}>{ renderCell(col, row, actions, props) }</td>) }
     </tr>
   ))
 }
