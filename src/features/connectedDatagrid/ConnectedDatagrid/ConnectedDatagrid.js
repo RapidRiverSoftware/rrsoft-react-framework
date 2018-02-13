@@ -57,7 +57,7 @@ let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
   return (
     <Smaller scale={0.7} style={{ marginBottom: 20 }}>
       <form onSubmit={handleSubmit}>
-        <Split push="right">
+        <Split push="right" gap={20}>
           <SearchForm />
           <div>
             <input type="submit"
