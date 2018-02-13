@@ -78,7 +78,6 @@ const Label = withTheme(styled.label`
 `);
 
 const FieldWrap = styled.div`
-  margin-bottom: 20px;
 `
 
 export default becomeField;

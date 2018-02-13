@@ -3,6 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as action from '../action'
 import Datagrid from '../../../components/Datagrid'
+import Split from '../../../components/grouping/Split'
+import Smaller from '../../../components/grouping/Smaller'
 import toJS from '../../../util/redux/toJS'
 import {reduxForm} from 'redux-form/immutable'
 
@@ -53,12 +55,19 @@ const mapDispatchToProps = (dispatch, props) => {
 
 let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
   return (
-    <div>
+    <Smaller scale={0.7} style={{ marginBottom: 20 }}>
       <form onSubmit={handleSubmit}>
-        <SearchForm />
-        <input type="submit" name="doAction" value="Search" />
+        <Split push="right" gap={20}>
+          <SearchForm />
+          <div>
+            <input type="submit"
+              name="doAction"
+              value="Search"
+              className="auto full-height" />
+          </div>
+        </Split>
       </form>
-    </div>
+    </Smaller>
   )
 }
 
