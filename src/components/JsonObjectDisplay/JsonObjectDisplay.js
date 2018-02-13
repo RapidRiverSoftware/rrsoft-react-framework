@@ -20,14 +20,18 @@ const JsonObjectDisplay = ({ info }) => {
 }
 
 const KeyValueTable = styled.table`
+  border: 1px solid ${({ theme }) => theme.primaryBorderColor(2)};
+
+  tbody tr:first-child td {
+    border-top: 0;
+  }
+
   td.key {
-    background-color: #fafafa;
+    background-color: #f7f7f7;
     text-align: right;
-    border-left: 1px solid ${({ theme }) => theme.primaryBorderColor(2)};
   }
 
   td.value {
-    border-right: 1px solid ${({ theme }) => theme.primaryBorderColor(2)};
   }
 
   table {
