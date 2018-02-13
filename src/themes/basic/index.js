@@ -107,7 +107,7 @@ export default {
         1: '#003282',
         2: '#003282',
         3: '#003282',
-        4: '#009282',
+        4: '#00d6be',
         5: '#009282',
         6: '#009282',
         7: '#009282',
@@ -245,15 +245,28 @@ export default {
         font-weight: 500;
       }
 
+      button,
       input[type=submit],
       button[type=submit] {
+        border: 0;
         height: 50px;
         font-size: 20px;
         background-color: ${theme.primaryBgColor(4)};
         color: #fefefe;
         width: 100%;
+        cursor: pointer;
         &:hover {
           background-color: ${theme.primaryBgColor(3)};
+        }
+
+        &.auto {
+          width: auto;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        &.full-height {
+          height: 100%;
         }
       }
 
@@ -272,8 +285,14 @@ export default {
 
       button.link {
         font-size: 20px;
+        width: auto;
+        height: auto;
         background-color: transparent;
         color: ${theme.primaryColor(5)};
+        &:hover {
+          color: ${theme.primaryColor(4)};
+          background-color: transparent;
+        }
         padding: 0 10px;
       }
 

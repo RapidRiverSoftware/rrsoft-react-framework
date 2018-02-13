@@ -3,6 +3,7 @@ import React from 'react'
 import core from 'rrrjs/lib/framework/core'
 import { connect } from 'react-redux'
 import { connectModal, Modal } from 'rrrjs/lib/features/modal'
+import Split from '../../components/grouping/Split'
 
 const makeCrud = ({ title, url, list, edit, add, destroy }) => {
   const EditForm = edit && edit.EditForm
@@ -31,7 +32,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
 
   const rowActions = (row, actions, props) => {
     const items = []
-    
+
     if (edit) {
       items.push(<button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>)
     }
@@ -105,8 +106,10 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
   const CrudComponent = connectModal((props) => {
     return (
       <div>
-        <h1>{title}</h1>
-        {AddForm ? <button onClick={clickAddForm(props.openModal)}>Add New</button> : null}
+        <Split push="right" alignItems="center">
+          <h1>{title}</h1>
+          {AddForm ? <button onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
+        </Split>
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
         {AddForm ? <AddFormContainer {...props} /> : null}

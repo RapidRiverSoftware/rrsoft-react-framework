@@ -3,6 +3,7 @@ import epic from './epic'
 import reducer from './reducer'
 
 export {default as TextField} from './TextField'
+export {default as CompactTextField} from './CompactTextField'
 export {default as TagInputField} from './TagInputField'
 export {default as DisplayOnlyField} from './DisplayOnlyField'
 
