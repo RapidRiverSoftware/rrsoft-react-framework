@@ -94,6 +94,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
         columns={list.columns}
         searchForm={list.SearchForm}
         searchFields={list.searchFields}
+        searchMapStateToProps={list.searchMapStateToProps}
       />
     )
   }

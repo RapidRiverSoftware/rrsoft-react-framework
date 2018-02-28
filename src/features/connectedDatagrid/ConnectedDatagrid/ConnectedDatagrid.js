@@ -28,7 +28,8 @@ class ConnectedDatagridComponent extends React.Component {
               url={url}
               searchForm={searchForm}
               searchFields={searchFields}
-            /> :
+            />
+            :
             null
         }
 
