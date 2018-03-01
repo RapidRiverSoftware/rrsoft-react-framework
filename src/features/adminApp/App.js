@@ -4,12 +4,14 @@ import { Route, withRouter } from 'react-router-dom'
 
 import { PrivateRoute, LoginPage } from '../auth'
 import makeAdminPage from './makeAdminPage'
+import ErrorMessage from '../errorMessage/ErrorMessage'
 
 const AppComponent = (props) => {
   const { mainMenu, logo } = props
 
   return (
     <div>
+      <ErrorMessage />
       <Route path="/login" component={LoginPage}/>
 
       {

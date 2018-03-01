@@ -5,6 +5,7 @@ import modal from '../modal'
 import form from '../form'
 import connectedDatagrid from '../connectedDatagrid'
 import connectedForm from '../connectedForm'
+import errorMessage from '../errorMessage'
 import crud from '../crud'
 import reducer from './reducer'
 
@@ -17,6 +18,7 @@ export default {
     core.install(connectedDatagrid)
     core.install(connectedForm)
     core.install(crud)
+    core.install(errorMessage)
 
     core.setDefaultApp(AppContainer)
     core.addReducer('adminApp', reducer)

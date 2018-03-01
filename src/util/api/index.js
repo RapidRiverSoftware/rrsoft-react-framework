@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import core from '../../framework/core'
 import fromJSOrdered from '../redux/fromJSOrdered';
-// import { displayErrorMessage } from '../features/error_message/actions';
+import { displayErrorMessage } from '../../features/error_message/actions';
 
 type Options = {
   body?: any,
@@ -118,9 +118,11 @@ const apiGeneric = (url: string, options: Options = {}) => {
           error: error.response.message,
           status: error.status,
         })
+      } else {
+        return Observable.of(displayErrorMessage(error.message));
       }
-      // return Observable.of(displayErrorMessage('There was an error.', error.status));
-      return Observable.of('123');
+
+      return Observable.of('');
     });
 };
 

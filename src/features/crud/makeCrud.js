@@ -59,7 +59,9 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
     return (
       <Modal id={editUrl}>
         <ConnectedEditForm url={url} onSuccess={onSuccessEdit}>
-          <EditForm {...props} />
+          <div style={{ padding: '0 20px 20px', width: 900, height: 400, overflow: 'scroll' }}>
+            <EditForm {...props} />
+          </div>
           <button type="submit">Save</button>
         </ConnectedEditForm>
       </Modal>
@@ -77,7 +79,9 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
     return (
       <Modal id={addUrl}>
         <ConnectedAddForm url={url} onSuccess={onSuccessAdd}>
-          <AddForm {...props} />
+          <div style={{ padding: '0 20px 20px', width: 900, height: 400, overflow: 'scroll' }}>
+            <AddForm {...props} />
+          </div>
           <button type="submit">Save</button>
         </ConnectedAddForm>
       </Modal>
