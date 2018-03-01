@@ -22,6 +22,8 @@ const saveEditEpic = (action$: any, store: any) =>
     .mergeMap(action => core.api.put(`${action.url}/${action.data.id}`, action.data, { action }))
     .map(core.api.responseToAction(SAVE_EDIT_SUCCESS))
     .do(action => {
+      if (!action.originalAction) { return }
+
       const onSuccess = action.originalAction.onSuccess
       if (onSuccess) {
         onSuccess()
@@ -34,6 +36,8 @@ const saveAddEpic = (action$: any, store: any) =>
     .mergeMap(action => core.api.post(action.url, action.data, { action }))
     .map(core.api.responseToAction(SAVE_ADD_SUCCESS))
     .do(action => {
+      if (!action.originalAction) { return }
+      
       const onSuccess = action.originalAction.onSuccess
       if (onSuccess) {
         onSuccess()

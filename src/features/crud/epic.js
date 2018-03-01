@@ -13,6 +13,8 @@ const deleteRowEpic = (action$: any, store: any) =>
     .mergeMap(action => core.api.delete(`${action.url}/${action.id}`, {}, { action }))
     .map(core.api.responseToAction(DELETE_ROW_SUCCESS))
     .do(action => {
+      if (!action.originalAction) { return }
+
       const onSuccess = action.originalAction.onSuccess
       if (onSuccess) {
         onSuccess()
