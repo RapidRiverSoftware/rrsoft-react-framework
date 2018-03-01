@@ -119,7 +119,9 @@ const apiGeneric = (url: string, options: Options = {}) => {
           status: error.status,
         })
       } else {
-        return Observable.of(displayErrorMessage(error.message));
+        const additionalError = (error.response && error.response.error) ? error.response.error : ''
+
+        return Observable.of(displayErrorMessage(`${error.message}. ${additionalError}`));
       }
 
       return Observable.of('');
