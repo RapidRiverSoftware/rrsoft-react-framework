@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import core from '../../framework/core'
 import fromJSOrdered from '../redux/fromJSOrdered';
-import { displayErrorMessage } from '../../features/error_message/actions';
+import { displayErrorMessage } from '../../features/errorMessage/actions';
 
 type Options = {
   body?: any,
