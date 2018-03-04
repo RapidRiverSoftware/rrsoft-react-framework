@@ -46,7 +46,7 @@ const becomeField = (WrappedInputComponent: any) => (props: Object) => {
 const becomeReduxFormInput = WrappedInputComponent => (props) => {
   const { id, input, label, meta: { active, touched, error }, ...inputProps } = props;
   const gotError = touched && error;
-  const htmlId = id || `${input.name}-${uuid()}`;
+  const htmlId = id || `field_${input.name}`;
 
   return (
     <FieldWrap>

@@ -195,7 +195,11 @@ const Redirect = ({ to }) => {
 core.Redirect = Redirect
 core.NavLink = NavLink
 
-
 window.rrcore = core
+
+window._forTestData = {}
+window._forTest = (name, value) => {
+  window._forTestData[name] = value
+}
 
 export default core

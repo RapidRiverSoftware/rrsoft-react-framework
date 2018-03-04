@@ -63,6 +63,7 @@ let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
           <div>
             <input type="submit"
               name="doAction"
+              id="doSearch"
               value="Search"
               className="auto full-height" />
           </div>

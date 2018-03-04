@@ -4,6 +4,9 @@ import React from 'react'
 import styled, { withTheme } from 'styled-components'
 import headerRenderer from './headerRenderer'
 import bodyRenderer from './bodyRenderer'
+import first from 'lodash/first'
+import last from 'lodash/last'
+import forTest from '../../util/test/forTest'
 
 type StandardField = {
   fieldName: string,
@@ -24,13 +27,21 @@ type CustomRender = {
 type ColumnShape = StandardField | CustomRender;
 
 const BaseDatagrid = ({ columns, data, actions, ...props }) => {
+  const name = props.name || 'default'
+
   return (
-    <Table {...props}>
-      <table>
-        <thead>{ headerRenderer(columns) }</thead>
-        <tbody>{ bodyRenderer(columns, data, actions, props) }</tbody>
-      </table>
-    </Table>
+    <div>
+
+      { forTest(`datagrid_${name}_firstRow`, first(data)) }
+      { forTest(`datagrid_${name}_lastRow`, last(data)) }
+
+      <Table {...props}>
+        <table>
+          <thead>{ headerRenderer(columns) }</thead>
+          <tbody>{ bodyRenderer(columns, data, actions, props) }</tbody>
+        </table>
+      </Table>
+    </div>
   )
 }
 

@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 import Split from '../../components/grouping/Split'
 
-const makeCrud = ({ title, url, list, edit, add, destroy }) => {
+const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
+  const crudName = name || 'Default'
   const EditForm = edit && edit.EditForm
   const editMapStateToProps = edit && edit.mapStateToProps
 
@@ -34,11 +35,11 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
     const items = []
 
     if (edit) {
-      items.push(<button key="edit" className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>)
+      items.push(<button key="edit" id={`edit${crudName}${row.id}`} className="link" onClick={clickEditForm(row.id, props.openModal)}>Edit</button>)
     }
 
     if (destroy) {
-      items.push(<button key="delete" className="link" onClick={clickDelete(row.id)}>Delete</button>)
+      items.push(<button key="delete" id={`delete${crudName}${row.id}`} className="link" onClick={clickDelete(row.id)}>Delete</button>)
     }
 
     return items
@@ -62,7 +63,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
           <div style={{ padding: '0 20px 20px', width: 900, height: 400, overflow: 'scroll' }}>
             <EditForm {...props} />
           </div>
-          <button type="submit">Save</button>
+          <button type="submit" id={`saveEdit${crudName}`}>Save</button>
         </ConnectedEditForm>
       </Modal>
     )
@@ -82,7 +83,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
           <div style={{ padding: '0 20px 20px', width: 900, height: 400, overflow: 'scroll' }}>
             <AddForm {...props} />
           </div>
-          <button type="submit">Save</button>
+          <button type="submit" id={`saveAdd${crudName}`}>Save</button>
         </ConnectedAddForm>
       </Modal>
     )
@@ -113,7 +114,7 @@ const makeCrud = ({ title, url, list, edit, add, destroy }) => {
       <div>
         <Split push="right" alignItems="center">
           <h1>{title}</h1>
-          {AddForm ? <button onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
+          {AddForm ? <button id={`addNew${crudName}`} onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
         </Split>
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
