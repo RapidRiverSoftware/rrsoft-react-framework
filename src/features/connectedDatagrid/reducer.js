@@ -12,7 +12,9 @@ const handlers = {};
 const initialState = fromJS({ fetchedData: {}, lastFetched: {} });
 
 handlers[FETCH_LIST] = (state, action) => {
-  return state.setIn(['lastFetched', action.url], fromJS({ currentPage: action.currentPage }))
+  return state
+    .setIn(['lastFetched', action.url], fromJS({ currentPage: action.currentPage }))
+    .setIn(['fetchedData', action.url], undefined)
 }
 
 handlers[FETCH_LIST_SUCCESS] = (state, action) => {

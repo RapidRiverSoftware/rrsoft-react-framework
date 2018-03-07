@@ -4,7 +4,6 @@ import styled, { withTheme } from 'styled-components';
 import { Field } from 'redux-form/immutable';
 import memoize from 'lodash/memoize';
 import validators from './validators';
-import uuid from '../../util/fn/uuid';
 
 const mapStringToFn = (propsValidators) => {
   let validatorFns = [];

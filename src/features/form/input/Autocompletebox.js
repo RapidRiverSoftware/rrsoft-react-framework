@@ -121,10 +121,10 @@ export default class Autocompletebox extends Component {
     this.normalizedItemLabel(state).toLowerCase().indexOf(value.toLowerCase()) !== -1;
 
   renderInput = (props: Object) => {
-    const { autoFocus, disabled, renderInputWrapper } = this.props;
+    const { autoFocus, disabled, renderInputWrapper, id } = this.props;
 
     const input = (
-      <Inputbox disabled={disabled} autoFocus={autoFocus} {...props} innerRef={this.setInputRef} ref={this.setRealInputRef(props)} />
+      <Inputbox disabled={disabled} autoFocus={autoFocus} {...props} innerRef={this.setInputRef} ref={this.setRealInputRef(props)} id={id} />
     );
 
     if (renderInputWrapper) {

@@ -28,10 +28,11 @@ type ColumnShape = StandardField | CustomRender;
 
 const BaseDatagrid = ({ columns, data, actions, ...props }) => {
   const name = props.name || 'default'
+  if (!data) { return null }
 
   return (
     <div>
-
+      { forTest(`datagrid_${name}_totalCount`, data.length) }
       { forTest(`datagrid_${name}_firstRow`, first(data)) }
       { forTest(`datagrid_${name}_lastRow`, last(data)) }
 
