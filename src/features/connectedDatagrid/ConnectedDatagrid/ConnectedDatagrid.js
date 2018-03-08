@@ -15,24 +15,12 @@ class ConnectedDatagridComponent extends React.Component {
   }
 
   render() {
-    const { pageData, url, searchForm, fetchList, searchFields } = this.props
+    const { pageData, url, fetchList, searchFields } = this.props
 
     if (!pageData) return null
 
     return (
       <div>
-
-        { searchForm ?
-            <SearchFormContainer
-              fetchList={this.props.fetchList}
-              url={url}
-              searchForm={searchForm}
-              searchFields={searchFields}
-            />
-            :
-            null
-        }
-
         <Datagrid
           {...this.props}
           handlePageClick={(p) => fetchList(url, p, searchFields)}
@@ -54,18 +42,17 @@ const mapDispatchToProps = (dispatch, props) => {
   }
 }
 
-let InnerSearchForm = ({handleSubmit, searchForm: SearchForm}) => {
+let InnerSearchForm = ({ handleSubmit, searchForm: SearchForm }) => {
   return (
     <Smaller scale={0.7} style={{ marginBottom: 20 }}>
       <form onSubmit={handleSubmit}>
         <Split push="right" gap={20}>
           <SearchForm />
           <div>
-            <input type="submit"
+            <button type="submit"
               name="doAction"
               id="doSearch"
-              value="Search"
-              className="auto full-height" />
+              className="auto full-height">Search</button>
           </div>
         </Split>
       </form>
@@ -83,4 +70,28 @@ const SearchFormContainer = ({ fetchList, url, searchForm, searchFields }) => {
   return <InnerSearchForm onSubmit={onSubmit} searchForm={searchForm} />
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(ConnectedDatagridComponent))
+const DatagridOnly = connect(mapStateToProps)(toJS(ConnectedDatagridComponent))
+
+const DatagridAndSearch = (props) => {
+  const { url, fetchList, searchFields, searchForm } = props
+  console.log('ppp', props)
+
+  return (
+    <div>
+      {
+        searchForm ?
+          <SearchFormContainer
+            fetchList={fetchList}
+            url={url}
+            searchForm={searchForm}
+            searchFields={searchFields}
+          />
+          :
+          null
+      }
+      <DatagridOnly {...props} />
+    </div>
+  )
+}
+
+export default connect(null, mapDispatchToProps)(DatagridAndSearch)
