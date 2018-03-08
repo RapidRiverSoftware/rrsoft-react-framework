@@ -13,5 +13,4 @@ export default withTheme(styled.span`
   background: ${({ primary, theme }) =>
     primary ? theme.primaryTagBgColor(5) : theme.secondaryTagBgColor(5)
   };
-  cursor: pointer;
 `)
