@@ -80,15 +80,27 @@ const apiGeneric = (url: string, options: Options = {}) => {
     headers['Authorization'] = authToken;
   }
 
-  return ajax({
-    url: `${opt.startPath}${url}${query ? `${symbol}${query}` : ''}`,
+  let finalUrl = `${opt.startPath}${url}`
+
+  if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
+    finalUrl = url
+  }
+
+  const queryString = query ? `${symbol}${query}` : ''
+
+  finalUrl = `${finalUrl}${queryString}`
+
+  const finalOptions = {
+    url: finalUrl,
     method: opt.method,
     headers,
     crossDomain: true,
-    withCredentials: true,
+    withCredentials: (opt.withCredentials === undefined) ? true : opt.withCredentials,
     body: opt.body,
     responseType: 'json',
-  })
+  }
+
+  return ajax(finalOptions)
     .map((res) => {
       const result = {
         error: res.error,
