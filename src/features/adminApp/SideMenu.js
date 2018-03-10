@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
 import styled, { withTheme } from 'styled-components'
+import core from '../../framework/core'
 
 const Side = withTheme(styled.div`
   height: 100%;
@@ -30,7 +30,7 @@ const Side = withTheme(styled.div`
 
 const Menu = styled.div`
 `
-
+const NavLink = core.NavLink
 const SideMenu = ({ mainMenu, onItemClick }) => {
   const onClick = t => () => onItemClick(t)
   return (
@@ -50,11 +50,11 @@ const SideMenu = ({ mainMenu, onItemClick }) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   const mainMenu = state.getIn(['core', 'mainMenu'])
   return {
     mainMenu: mainMenu ? mainMenu.toJS() : []
   }
 }
 
-export default connect(mapStateToProps)(withTheme(SideMenu))
+export default connect(mapStateToProps)(SideMenu)

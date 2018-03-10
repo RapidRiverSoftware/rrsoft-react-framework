@@ -20,8 +20,8 @@ const mapDispatchToProps = dispatch => ({
   closeMenu: () => dispatch(closeMenu())
 });
 
-const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDispatchToProps)((props) => (
-  <Layout>
+const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDispatchToProps)((props) => {
+  return <Layout>
     <Occupy height={50}>
       <Top>
         <Topbar
@@ -40,7 +40,7 @@ const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDi
     </Body>
     <SideMask opened={props.menuOpened} onClick={props.closeMenu} />
   </Layout>
-))
+})
 
 const Occupy = styled.div`
   height: ${({ height })=>height}px;

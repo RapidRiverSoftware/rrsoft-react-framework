@@ -7,13 +7,13 @@ import App from './App'
 
 const AppContainer = ({ store }) => {
   return (
-    <Router>
-      <Provider store={store}>
-        <Theme>
+    <Provider store={store}>
+      <Theme>
+        <Router>
           <App />
-        </Theme>
-      </Provider>
-    </Router>
+        </Router>
+      </Theme>
+    </Provider>
   )
 }
 
