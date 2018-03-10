@@ -10,6 +10,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import each from 'lodash/each'
 import isArray from 'lodash/isArray'
+import { createSelector } from 'reselect'
 
 import 'rxjs/add/observable/dom/ajax';
 import 'rxjs/add/operator/filter';
@@ -43,6 +44,10 @@ let installCount = -1
 const getApiOptions = () => apiOptions;
 
 const core = {
+  createSelector(...args) {
+    return createSelector(...args)
+  },
+
   addReducer(name, reducer) {
     if (!reducer) {
       throw new Error("no reducer defined")

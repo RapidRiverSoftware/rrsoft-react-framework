@@ -2,6 +2,12 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { connect } from 'react-redux'
+import core from './core'
+
+const getThemeSelector = core.createSelector(
+  theme => theme ? theme.toJS() : {},
+  theme => theme
+)
 
 const ThemeComponent = ({ theme, children }) => {
   return (
@@ -14,7 +20,7 @@ const ThemeComponent = ({ theme, children }) => {
 const mapStateToProps = (state) => {
   const theme = state.getIn(['core', 'theme'])
   return {
-    theme: theme ? theme.toJS() : {}
+    theme: getThemeSelector(theme)
   }
 }
 
