@@ -74,7 +74,6 @@ const DatagridOnly = connect(mapStateToProps)(toJS(ConnectedDatagridComponent))
 
 const DatagridAndSearch = (props) => {
   const { url, fetchList, searchFields, searchForm } = props
-  console.log('ppp', props)
 
   return (
     <div>

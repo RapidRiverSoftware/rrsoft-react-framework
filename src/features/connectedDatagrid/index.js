@@ -8,10 +8,11 @@ import { fetchList } from './action'
 export default {
   register(core, options, next) {
     console.log("installing connected datagrid")
-    
+
     const refreshFetch = (url) => {
       const currentPage = core.store.getState().getIn(['connectedDatagrid', 'lastFetched', url, 'currentPage'])
-      core.dispatch(fetchList(url, currentPage))
+      const searchFields = core.store.getState().getIn(['connectedDatagrid', 'lastFetched', url, 'searchFields'])
+      core.dispatch(fetchList(url, currentPage, searchFields))
     }
 
     core.setFn('refreshFetch', refreshFetch)

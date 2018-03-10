@@ -13,7 +13,7 @@ const initialState = fromJS({ fetchedData: {}, lastFetched: {} });
 
 handlers[FETCH_LIST] = (state, action) => {
   return state
-    .setIn(['lastFetched', action.url], fromJS({ currentPage: action.currentPage }))
+    .setIn(['lastFetched', action.url], fromJS({ currentPage: action.currentPage, searchFields: action.searchFields }))
     .setIn(['fetchedData', action.url], undefined)
 }
 
