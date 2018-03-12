@@ -10,6 +10,9 @@ import toJS from '../../util/redux/toJS'
 
 class TagInputField extends Component {
   removeTag = item => {
+    console.log('item', item)
+    console.log('value', this.props.value)
+    console.log(without(this.props.value, item))
     this.props.onChange(without(this.props.value, item))
   }
 
