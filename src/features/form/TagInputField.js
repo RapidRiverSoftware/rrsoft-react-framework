@@ -20,7 +20,6 @@ class TagInputField extends Component {
   }
 
   addTag = item => {
-    if (!this.props.value) return
     const value = this.props.value || []
     this.props.onChange(value.concat([item.value ? item.value : item]))
   }
