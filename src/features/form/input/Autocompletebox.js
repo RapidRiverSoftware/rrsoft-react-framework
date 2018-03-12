@@ -26,6 +26,9 @@ export default class Autocompletebox extends Component {
     onFocus: () => {
       console.log('focus');
     },
+    onBlur: () => {
+      console.log('blur');
+    },
   };
 
   props: {
