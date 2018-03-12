@@ -13,7 +13,9 @@ const initialState = fromJS({ fetchedData: {} });
 
 
 handlers[DELETE_ROW] = (state, action) => {
-  return state.setIn(['deleting'], true)
+  return state
+    .setIn(['deleting'], true)
+    .setIn(['connectedDatagrid', 'fetchedData', action.url], undefined)
 }
 
 handlers[DELETE_ROW_SUCCESS] = (state, action) => {
