@@ -10,9 +10,6 @@ import toJS from '../../util/redux/toJS'
 
 class TagInputField extends Component {
   removeTag = item => {
-    console.log('item', item)
-    console.log('value', this.props.value)
-    console.log(without(this.props.value, item))
     this.props.onChange(without(this.props.value, item))
   }
 
@@ -22,6 +19,7 @@ class TagInputField extends Component {
   }
 
   addTag = item => {
+    if (!this.props.value) return
     const value = this.props.value || []
     this.props.onChange(value.concat([item.value ? item.value : item]))
   }
