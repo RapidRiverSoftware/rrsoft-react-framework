@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSuggestion } from './action'
 import without from 'lodash/without'
+import compact from 'lodash/compact'
 import becomeField from './becomeField'
 import TagAutocompleteInput from './input/TagAutocompleteInput'
 import toJS from '../../util/redux/toJS'
@@ -10,7 +11,7 @@ import toJS from '../../util/redux/toJS'
 
 class TagInputField extends Component {
   removeTag = item => {
-    this.props.onChange(without(this.props.value, item))
+    this.props.onChange(compact(without(this.props.value, item)))
   }
 
   removeLastTag = () => {
