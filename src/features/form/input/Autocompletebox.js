@@ -38,6 +38,7 @@ export default class Autocompletebox extends Component {
     onSelect: Function,
     onEnter: Function,
     onFocus: Function,
+    onBlur: Function,
     onBackspace: Function,
   };
   input: Object;
@@ -48,11 +49,13 @@ export default class Autocompletebox extends Component {
   componentDidMount() {
     this.input.addEventListener('keydown', this.handleKeyDown);
     this.input.addEventListener('focus', this.handleFocus);
+    this.input.addEventListener('blur', this.handleBlur);
   }
 
   componentWillUnmount() {
     this.input.removeEventListener('keydown', this.handleKeyDown);
     this.input.removeEventListener('focus', this.handleFocus);
+    this.input.removeEventListener('blur', this.handleBlur);
   }
 
   componentWillReceiveProps() {
@@ -106,6 +109,10 @@ export default class Autocompletebox extends Component {
 
   handleFocus = () => {
     this.props.onFocus();
+  };
+
+  handleBlur = () => {
+    this.props.onBlur();
   };
 
   updateHeight = () => {

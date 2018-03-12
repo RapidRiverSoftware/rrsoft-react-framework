@@ -46,6 +46,7 @@ class TagInputField extends Component {
         onBackspaceEmpty={this.removeLastTag}
         onSelect={this.addTag}
         onEnter={this.addTag}
+        onBlur={this.addTag}
         placeholder={this.props.placeholder}
         {...props}
       />
