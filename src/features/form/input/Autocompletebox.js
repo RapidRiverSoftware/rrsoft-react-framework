@@ -114,10 +114,8 @@ export default class Autocompletebox extends Component {
     this.props.onFocus();
   };
 
-  handleBlur = (e) => {
-    e.preventDefault()
-    this.props.onBlur(e.target.value)
-    this.clearValue()
+  handleBlur = () => {
+    // this.props.onBlur();
   };
 
   updateHeight = () => {

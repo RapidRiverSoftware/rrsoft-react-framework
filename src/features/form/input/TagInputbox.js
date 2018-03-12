@@ -11,6 +11,7 @@ type Props = {
 }
 
 export default ({ disabled=false, items, input, onTagClick }: Props) => {
+  console.log('items', items)
   return (
     <TagGroup>
       {
