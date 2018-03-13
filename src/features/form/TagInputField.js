@@ -21,7 +21,9 @@ class TagInputField extends Component {
 
   addTag = item => {
     const value = this.props.value || []
-    this.props.onChange(value.concat([item.value ? item.value : item]))
+    if (item) {
+      this.props.onChange(value.concat([item.value ? item.value : item]))
+    }
   }
 
   search = (term) => {
@@ -35,21 +37,23 @@ class TagInputField extends Component {
   }
 
   render() {
-    const { value, ...props } = this.props
+    const { value, suggestItems, ...props } = this.props
+
+    const noRepeatSuggestItems = without(suggestItems, ...(value||[]))
 
     return (
       <TagAutocompleteInput
         tagItems={value}
-        suggestItems={this.props.suggestItems}
+        suggestItems={noRepeatSuggestItems}
         onTagClick={this.removeTag}
         onType={this.search}
         onFocus={this.search}
         onBackspaceEmpty={this.removeLastTag}
         onSelect={this.addTag}
         onEnter={this.addTag}
-        onBlur={this.addTag}
         placeholder={this.props.placeholder}
         {...props}
+        onBlur={this.addTag}
       />
     )
   }

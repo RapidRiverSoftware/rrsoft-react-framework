@@ -65,11 +65,11 @@ export default class TagAutocompletebox extends Component {
         renderInputWrapper={this.renderInputWrapper}
         onType={this.handleTyping}
         onBackspace={this.handleBackspace}
-        onBlur={onBlur}
         onFocus={onFocus}
         onSelect={onSelect}
         onEnter={onEnter}
         {...props}
+        onBlur={onBlur}
       />
     );
   }
