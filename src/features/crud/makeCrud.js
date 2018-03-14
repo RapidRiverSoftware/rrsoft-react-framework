@@ -109,9 +109,10 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
     openModal(addUrl)
   }
 
-  const CrudComponent = connectModal((props) => {
+  const CrudComponent = connect(crudMapStateToProps)(connectModal((props) => {
     return (
       <div>
+        {props.isDeleting ? <div style={{ display: 'none' }} id="isDeleting"></div> : null }
         <Split push="right" alignItems="center">
           <h1>{title}</h1>
           {AddForm ? <button id={`addNew${crudName}`} onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
@@ -121,9 +122,15 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
         {AddForm ? <AddFormContainer {...props} /> : null}
       </div>
     )
-  })
+  }))
 
   return CrudComponent
+}
+
+const crudMapStateToProps = (state) => {
+  return {
+    isDeleting: state.getIn(['crud', 'isDeleting'])
+  }
 }
 
 export default makeCrud

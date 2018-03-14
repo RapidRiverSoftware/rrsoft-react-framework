@@ -14,12 +14,12 @@ const initialState = fromJS({ fetchedData: {} });
 
 handlers[DELETE_ROW] = (state, action) => {
   return state
-    .setIn(['deleting'], true)
+    .setIn(['isDeleting'], true)
     .setIn(['connectedDatagrid', 'fetchedData', action.url], undefined)
 }
 
 handlers[DELETE_ROW_SUCCESS] = (state, action) => {
-  return state.setIn(['deleting'], false)
+  return state.setIn(['isDeleting'], false)
 }
 
 export default createReducer(initialState, handlers);

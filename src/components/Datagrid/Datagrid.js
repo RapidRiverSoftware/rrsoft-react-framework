@@ -46,7 +46,7 @@ const Datagrid = ({ pageData, handlePageClick, ...props }) => {
   const { firstPage, lastPage } = pageRange(pageData.current_page, pageData.total_page);
 
   const renderPagination = (page) => {
-    const item = (page != pageData.current_page) ?
+    const item = (page !== pageData.current_page) ?
       <a href="#" onClick={() => handlePageClick(page)}>{page}</a> :
       page
 
@@ -63,7 +63,7 @@ const Datagrid = ({ pageData, handlePageClick, ...props }) => {
         {...props}
         data={pageData.data}
       />
-      
+
       { (firstPage !== lastPage) ?
         range(firstPage, lastPage + 1).map(p => renderPagination(p)) :
         null
