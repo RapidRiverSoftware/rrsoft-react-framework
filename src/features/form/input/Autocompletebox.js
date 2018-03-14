@@ -26,6 +26,9 @@ export default class Autocompletebox extends Component {
     onFocus: () => {
       console.log('focus');
     },
+    onBlur: () => {
+      console.log('blur');
+    },
   };
 
   props: {
@@ -38,6 +41,7 @@ export default class Autocompletebox extends Component {
     onSelect: Function,
     onEnter: Function,
     onFocus: Function,
+    onBlur: Function,
     onBackspace: Function,
   };
   input: Object;
@@ -48,11 +52,13 @@ export default class Autocompletebox extends Component {
   componentDidMount() {
     this.input.addEventListener('keydown', this.handleKeyDown);
     this.input.addEventListener('focus', this.handleFocus);
+    this.input.addEventListener('blur', this.handleBlur);
   }
 
   componentWillUnmount() {
     this.input.removeEventListener('keydown', this.handleKeyDown);
     this.input.removeEventListener('focus', this.handleFocus);
+    this.input.removeEventListener('blur', this.handleBlur);
   }
 
   componentWillReceiveProps() {
@@ -70,6 +76,8 @@ export default class Autocompletebox extends Component {
   };
 
   updateSelectedItem = (val: string) => {
+    if (this.enterTimeout) clearTimeout(this.enterTimeout)
+
     const { items, onSelect } = this.props;
     const selectedItem = items.find(item => (typeof item === 'string' ? item : item.value).toString() === val.toString());
     onSelect(selectedItem);
@@ -96,16 +104,34 @@ export default class Autocompletebox extends Component {
       this.props.onBackspace(e.target.value);
       this.updateHeight();
     } else if (e.which === 13) {
-      if (e.target.value.toString().length) {
-        e.preventDefault();
-        this.props.onEnter(e.target.value);
-        this.clearValue();
-      }
+      e.preventDefault();
+      // timeout to ensure it happens after onSelect
+      this.enterTimeout = setTimeout(() => {
+        if (e.target.value.toString().length) {
+          this.props.onEnter(e.target.value);
+          this.clearValue();
+          this.updateHeight();
+        }
+      })
     }
   };
 
   handleFocus = () => {
     this.props.onFocus();
+  };
+
+  handleBlur = (e) => {
+    // prevent it to register value when clicked on auto suggested value
+    if (!this.clickedMenu && e.target.value.toString().length) {
+      this.props.onBlur(e.target.value)
+      this.clearValue()
+      this.updateHeight();
+    }
+    this.clickedMenu = false
+  };
+
+  handleClickMenu = (e) => {
+    this.clickedMenu = true
   };
 
   updateHeight = () => {
@@ -144,7 +170,7 @@ export default class Autocompletebox extends Component {
     );
   };
 
-  renderMenu = (children: any) => <Menu top={this.state.boxHeight}>{children}</Menu>;
+  renderMenu = (children: any) => <Menu onMouseDown={this.handleClickMenu} top={this.state.boxHeight}>{children}</Menu>;
 
   render() {
     const { items, matchState, placeholder } = this.props;
@@ -153,7 +179,7 @@ export default class Autocompletebox extends Component {
     return (
       <div ref={this.setAutocompleteRef}>
         <Autocomplete
-          autoHighlight
+          autoHighlight={false}
           items={items}
           value={value}
           getItemValue={this.getItemValue}

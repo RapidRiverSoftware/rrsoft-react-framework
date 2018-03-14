@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchSuggestion } from './action'
 import without from 'lodash/without'
+import compact from 'lodash/compact'
 import becomeField from './becomeField'
 import TagAutocompleteInput from './input/TagAutocompleteInput'
 import toJS from '../../util/redux/toJS'
@@ -10,7 +11,7 @@ import toJS from '../../util/redux/toJS'
 
 class TagInputField extends Component {
   removeTag = item => {
-    this.props.onChange(without(this.props.value, item))
+    this.props.onChange(compact(without(this.props.value, item)))
   }
 
   removeLastTag = () => {
@@ -20,7 +21,9 @@ class TagInputField extends Component {
 
   addTag = item => {
     const value = this.props.value || []
-    this.props.onChange(value.concat([item.value ? item.value : item]))
+    if (item) {
+      this.props.onChange(value.concat([item.value ? item.value : item]))
+    }
   }
 
   search = (term) => {
@@ -34,12 +37,14 @@ class TagInputField extends Component {
   }
 
   render() {
-    const { value, ...props } = this.props
+    const { value, suggestItems, ...props } = this.props
+
+    const noRepeatSuggestItems = without(suggestItems, ...(value||[]))
 
     return (
       <TagAutocompleteInput
         tagItems={value}
-        suggestItems={this.props.suggestItems}
+        suggestItems={noRepeatSuggestItems}
         onTagClick={this.removeTag}
         onType={this.search}
         onFocus={this.search}
@@ -48,6 +53,7 @@ class TagInputField extends Component {
         onEnter={this.addTag}
         placeholder={this.props.placeholder}
         {...props}
+        onBlur={this.addTag}
       />
     )
   }

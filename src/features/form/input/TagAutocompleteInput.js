@@ -11,6 +11,7 @@ type Props = {
   onType: string => void,
   onSelect: string => void,
   onFocus: () => void,
+  onBlur: () => void,
   onBackspaceEmpty: () => void,
   onTagChange: (Array<Object>) => void,
   renderSuggestItem?: (item: Object, isHighlighted: boolean) => React.Element<any>,
@@ -23,6 +24,9 @@ export default class TagAutocompletebox extends Component {
     },
     onFocus: () => {
       console.log('focus');
+    },
+    onBlur: () => {
+      console.log('blur')
     },
     onBackspaceEmpty: () => {},
     onTagChange: () => {},
@@ -52,7 +56,7 @@ export default class TagAutocompletebox extends Component {
   };
 
   render() {
-    const { suggestItems, renderSuggestItem, onEnter, onSelect, onFocus, ...props } = this.props;
+    const { suggestItems, renderSuggestItem, onEnter, onSelect, onFocus, onBlur, ...props } = this.props;
 
     return (
       <Autocompletebox
@@ -65,6 +69,7 @@ export default class TagAutocompletebox extends Component {
         onSelect={onSelect}
         onEnter={onEnter}
         {...props}
+        onBlur={onBlur}
       />
     );
   }
