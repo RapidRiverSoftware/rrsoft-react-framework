@@ -4,6 +4,7 @@ import styled, { withTheme } from 'styled-components';
 import { Field } from 'redux-form/immutable';
 import memoize from 'lodash/memoize';
 import validators from './validators';
+import Tooltip from '../../components/Tooltip'
 
 const mapStringToFn = (propsValidators) => {
   let validatorFns = [];
@@ -43,13 +44,13 @@ const becomeField = (WrappedInputComponent: any) => (props: Object) => {
 };
 
 const becomeReduxFormInput = WrappedInputComponent => (props) => {
-  const { id, input, label, meta: { active, touched, error }, ...inputProps } = props;
+  const { id, input, tooltip, label, meta: { active, touched, error }, ...inputProps } = props;
   const gotError = touched && error;
   const htmlId = id || `field_${input.name}`;
 
   return (
     <FieldWrap>
-      {renderLabel(label, htmlId, active)}
+      {renderLabel(label, tooltip, htmlId, active)}
       <WrappedInputComponent id={htmlId} {...input} {...inputProps} isActive={active} />
       <span style={{ color: 'red' }}>{gotError ? error : null}</span>
     </FieldWrap>
@@ -58,11 +59,11 @@ const becomeReduxFormInput = WrappedInputComponent => (props) => {
 
 const memoBecomeReduxFormInput = memoize(becomeReduxFormInput);
 
-const renderLabel = (label, htmlId, isActive) => {
+const renderLabel = (label, tooltip, htmlId, isActive) => {
   if (label) {
     return (
       <Label htmlFor={htmlId} isActive={isActive}>
-        {label}
+        {label} {tooltip && <Tooltip>{tooltip}</Tooltip>}
       </Label>
     );
   }
@@ -74,6 +75,8 @@ const Label = withTheme(styled.label`
   color: ${({ isActive, theme }) => (isActive ? theme.secondaryLabelColor(5) : theme.primaryLabelColor(5))};
   display: block;
   font-size: ${({ theme }) => theme.fontSize(5)};
+  display: flex;
+  align-items: center;
 `);
 
 const FieldWrap = styled.div`

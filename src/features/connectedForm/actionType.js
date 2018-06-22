@@ -11,3 +11,4 @@ export const SAVE_ADD = 'connectedForm/SAVE_ADD';
 export const SAVE_ADD_SUCCESS = 'connectedForm/SAVE_ADD_SUCCESS';
 
 export const RESET_DATA = 'connectedForm/RESET_DATA';
+export const RESET_LOCAL_DATA = 'connectedForm/RESET_LOCAL_DATA';

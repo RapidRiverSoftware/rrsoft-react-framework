@@ -77,7 +77,7 @@ export default {
         5: 'rgba(255,255,255, 0.8)',
       }[5]),
       primaryLabelColor: n => ({
-        5: '#b1b1b1',
+        5: '#ababab',
       }[5]),
       secondaryLabelColor: n => ({
         5: '#00d6be',
@@ -298,7 +298,6 @@ export default {
 
       label {
         cursor: pointer;
-        color: ${theme.primaryLabelColor(5)};
       }
 
       table {

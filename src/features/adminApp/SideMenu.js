@@ -31,7 +31,7 @@ const Side = withTheme(styled.div`
 const Menu = styled.div`
 `
 const NavLink = core.NavLink
-const SideMenu = ({ mainMenu, onItemClick }) => {
+const SideMenu = ({ mainMenu, onItemClick = () => {} }) => {
   const onClick = t => () => onItemClick(t)
   return (
     <Side>

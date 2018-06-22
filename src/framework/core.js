@@ -1,5 +1,5 @@
 import configureStore from './configureStore'
-import createHistory from 'history/createBrowserHistory'
+import createHistory from 'history/createBrowserHistory';
 import { combineReducers } from 'redux-immutable'
 import { reducer as formReducer } from 'redux-form/immutable'
 import { routerReducer } from 'react-router-redux';
@@ -161,14 +161,13 @@ const core = {
         const register = featureConfig.register
         register(this, featureConfig.options, next)
       } else {
-        const history = createHistory();
+        this.history = createHistory()
+        this.store = configureStore(combineReducers(reducers), combineEpics(...epics), fromJS(initialState), this.history)
 
-        this.store = configureStore(combineReducers(reducers), combineEpics(...epics), fromJS(initialState), history)
+        ReactDOM.render(<DefaultApp {...defaultAppOptions} store={this.store} history={this.history} />, rootNode)
 
-        ReactDOM.render(<DefaultApp {...defaultAppOptions} store={this.store} />, rootNode)
         isStarted = true
         each(dispatchQueue, action => {
-          console.log(action)
           this.store.dispatch(action)
         })
         console.log("finish installing")
@@ -178,7 +177,7 @@ const core = {
     installCount = -1
 
     this.addReducer('core', coreReducer)
-    this.addReducer('reactRoute', routerReducer)
+    this.addReducer('router', routerReducer)
     this.addReducer('form', formReducer)
 
     next()
