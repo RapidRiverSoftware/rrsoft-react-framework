@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import memoize from 'lodash/memoize'
 import Topbar from './Topbar'
 import SideMenu from './SideMenu'
+import SecondaryMenu from './SecondaryMenu'
 import Content from './Content'
 import MenuIcon from '../../components/Icon/Menu'
 import { AvatarAndName } from '../../components/Avatar'
@@ -20,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
   closeMenu: () => dispatch(closeMenu())
 });
 
-const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDispatchToProps)((props) => {
+const makeAdminPage = (WrappedComponent, options = {}) => connect(mapStateToProps, mapDispatchToProps)((props) => {
   return <Layout>
     <Occupy height={50}>
       <Top>
@@ -28,10 +29,11 @@ const makeAdminPage = (WrappedComponent, logo) => connect(mapStateToProps, mapDi
           leftCorner={<MenuToggle onClick={props.menuOpened ? props.closeMenu : props.openMenu}>
             <MenuIcon color="#ffffff" />
           </MenuToggle>}
-          logo={logo}
+          logo={options.logo}
           rightCorner={<AvatarAndName name={props.name} size={40} />} />
       </Top>
     </Occupy>
+    <SecondaryMenu />
     <Body>
       <Side opened={props.menuOpened}>
         <SideMenu onItemClick={props.closeMenu} />
@@ -52,6 +54,7 @@ const Top = withTheme(styled.div`
   top: 0;
   left: 0;
   height: 50px;
+  z-index: 100;
 `)
 const Layout = withTheme(styled.div`
   display: flex;

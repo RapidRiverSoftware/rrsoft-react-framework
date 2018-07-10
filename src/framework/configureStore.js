@@ -2,7 +2,7 @@
 /* global window */
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'react-router-redux';
 
 type Store = Object;
 
@@ -10,7 +10,7 @@ const configureStore = (
   rootReducer: Function,
   rootEpic: Function,
   initialState: {},
-  history: Object,
+  history: null
 ): Store => {
   const epicMiddleware = createEpicMiddleware(rootEpic);
   const historyRouterMiddleware = routerMiddleware(history);
@@ -24,7 +24,7 @@ const configureStore = (
   }
 
   return createStore(
-    compose(routerReducer, rootReducer),
+    rootReducer,
     initialState,
     compose(...enhancers),
   );

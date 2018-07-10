@@ -5,6 +5,7 @@ import {
   SAVE_ADD,
   EDIT_FORM,
   RESET_DATA,
+  RESET_LOCAL_DATA,
   ADD_FORM
 } from './actionType';
 
@@ -37,3 +38,9 @@ export const addForm = (url) => ({
   type: ADD_FORM,
   url,
 });
+
+export const resetLocalData = (id) => ({
+  type: RESET_LOCAL_DATA,
+  id,
+});
+

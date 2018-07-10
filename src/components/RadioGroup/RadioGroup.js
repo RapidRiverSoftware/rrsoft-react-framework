@@ -3,9 +3,10 @@ import React from 'react';
 import camelCase from 'lodash/camelCase';
 
 type Props = {
+  name: string,
   label: string,
   items: Array<string>,
-  checkedItem: string,
+  value: string,
   onChange: Function,
   itemLabel?: Function,
   vertical?: boolean,
@@ -14,7 +15,7 @@ type Props = {
 const handleChange = (item, change) => {
   return (e) => {
     if (e.target.checked) {
-      change(item);
+      change(item)
     }
   }
 };
@@ -29,24 +30,26 @@ const handleItemLabel = (item, i, itemLabel) => {
 
 const defaultItemLabel = item => item;
 
-const RadioGroup = ({ label, items, checkedItem, itemLabel=defaultItemLabel, onChange, vertical=false }: Props) =>
-  <div style={styles.container}>
+const RadioGroup = ({ name, label, items, value, isActive, itemLabel=defaultItemLabel, onChange, vertical=false, ...props }: Props) => {
+  return <div style={styles.container}>
     <div><strong>{label}</strong></div>
     <div style={{ ...styles.items, ...(vertical ? styles.verticalItems : {}) }}>
       {
         items.map((item, i) => <label key={`rg-${item}`} style={styles.item}>
           <input
             type="radio"
-            name={camelCase(label)}
-            checked={item === checkedItem}
+            name={name || camelCase(label)}
+            checked={item === value}
             value={item}
-            onChange={handleChange(item, onChange)} />
+            onChange={handleChange(item, onChange)}
+            {...props} />
           {' '}
           {handleItemLabel(item, i, itemLabel)}
         </label>)
       }
     </div>
-  </div>;
+  </div>
+}
 
 const styles = {
   container: {

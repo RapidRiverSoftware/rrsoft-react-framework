@@ -7,6 +7,7 @@ import {
   SAVE_EDIT,
   SAVE_EDIT_SUCCESS,
   RESET_DATA,
+  RESET_LOCAL_DATA,
   ADD_FORM,
   SAVE_ADD_SUCCESS
 } from './actionType';
@@ -29,6 +30,10 @@ handlers[SAVE_EDIT_SUCCESS] = (state, action) => {
 
 handlers[RESET_DATA] = (state, action) => {
   return state.setIn(['fetchedData', action.url], undefined)
+}
+
+handlers[RESET_LOCAL_DATA] = (state, action) => {
+  return state.setIn(['localData', action.id], undefined)
 }
 
 handlers[ADD_FORM] = (state, action) => {

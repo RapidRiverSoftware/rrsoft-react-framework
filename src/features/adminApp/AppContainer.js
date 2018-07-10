@@ -1,17 +1,17 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
 
 import Theme from '../../framework/Theme'
 import App from './App'
 
-const AppContainer = ({ store }) => {
+const AppContainer = ({ store, history }) => {
   return (
     <Provider store={store}>
       <Theme>
-        <Router>
+        <ConnectedRouter history={history}>
           <App />
-        </Router>
+        </ConnectedRouter>
       </Theme>
     </Provider>
   )

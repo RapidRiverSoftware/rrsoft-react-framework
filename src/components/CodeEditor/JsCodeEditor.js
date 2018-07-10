@@ -16,7 +16,7 @@ const style = {
   container: {},
 };
 
-const JsCodeEditor = ({ label, value, onChange }: Props) =>
+const JsCodeEditor = ({ label, value, height = '120px', width, onChange }: Props) =>
   <div style={style.container}>
     <div><strong>{label}</strong></div>
     <AceEditor
@@ -25,7 +25,8 @@ const JsCodeEditor = ({ label, value, onChange }: Props) =>
       onChange={onChange}
       name={camelCase(label)}
       value={value}
-      height={'120px'}
+      width={width}
+      height={height}
       editorProps={{$blockScrolling: true}}
     />
   </div>;
