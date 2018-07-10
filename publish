@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+npm version ${1:-minor} -m "Jenkins please publish %s"
+git push
+echo "Publishing through jenkins to npm..."
