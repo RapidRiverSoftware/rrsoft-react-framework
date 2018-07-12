@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo "env: $NODE_ENV"
+
+set -exuo pipefail
+IFS=$'\t\n'
+
+#rm -rf node_modules
+
+if [ -z "$NPM_TOKEN" ]; then
+  npm install --no-optional && npm version ${VERSION:-minor} -m "Jenkins please publish %s"
+  echo "Version bumped. But NPM_TOKEN not found. But please git push to publish through jenkins to npm..."
+else
+  echo "NPM_TOKEN found. Publishing directly to npm"
+  npm install --no-optional && npm version ${VERSION:-minor} && npm publish
+fi

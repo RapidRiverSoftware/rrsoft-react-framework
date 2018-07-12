@@ -1,0 +1,13 @@
+version: "2.1"
+services:
+  publish:
+    image: node:9.8.0-slim
+    volumes:
+      - ./:/rrrjs:cached
+    working_dir: /rrrjs
+    command: ["bash", "-c", "./docker/publish"]
+    restart: "no"
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - VERSION=${VERSION:-minor}
+      - NPM_TOKEN

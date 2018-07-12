@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-npm version ${1:-minor} -m "Jenkins please publish %s"
-git push
-echo "Publishing through jenkins to npm..."
+if [[ `git status --porcelain` ]]; then
+  echo "Publish cancelled, because you still have some local changes."
+  exit 1
+fi
+
+docker-compose run -e NPM_TOKEN=${NPM_TOKEN} -e VERSION=${1:-minor} -e NODE_ENV=production publish
