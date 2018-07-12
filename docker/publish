@@ -12,5 +12,5 @@ if [ -z "$NPM_TOKEN" ]; then
   echo "Version bumped. But NPM_TOKEN not found. But please git push to publish through jenkins to npm..."
 else
   echo "NPM_TOKEN found. Publishing directly to npm"
-  npm install --no-optional && npm version ${VERSION:-minor} && npm publish
+  npm install --no-optional && npm version ${VERSION:-minor} && npm publish --registry=https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
 fi
