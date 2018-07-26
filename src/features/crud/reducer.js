@@ -11,7 +11,6 @@ const handlers = {};
 
 const initialState = fromJS({ fetchedData: {} });
 
-
 handlers[DELETE_ROW] = (state, action) => {
   return state
     .setIn(['isDeleting'], true)

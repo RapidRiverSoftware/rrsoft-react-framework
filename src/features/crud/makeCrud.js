@@ -100,6 +100,7 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
         searchForm={list.SearchForm}
         searchFields={list.searchFields}
         searchMapStateToProps={list.searchMapStateToProps}
+        searchMassActions={list.searchMassActions}
       />
     )
   }
