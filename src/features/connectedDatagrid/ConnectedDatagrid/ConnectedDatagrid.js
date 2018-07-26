@@ -62,18 +62,22 @@ let InnerSearchForm = ({ handleSubmit, searchForm: SearchForm }) => {
 
 InnerSearchForm = reduxForm({ form: 'search' })(InnerSearchForm)
 
-const SearchFormContainer = ({ fetchList, url, searchForm, searchFields }) => {
+const SearchFormContainer = ({ fetchList, url, searchForm, searchFields, searchMassActions: SearchMassActions }) => {
   const onSubmit = (value) => {
     fetchList(url, 1, searchFields)
   }
 
-  return <InnerSearchForm onSubmit={onSubmit} searchForm={searchForm} />
+
+  return [
+    <InnerSearchForm key="one" onSubmit={onSubmit} searchForm={searchForm} />,
+    SearchMassActions ? <SearchMassActions key="two" /> : null
+  ]
 }
 
 const DatagridOnly = connect(mapStateToProps)(toJS(ConnectedDatagridComponent))
 
 const DatagridAndSearch = (props) => {
-  const { url, fetchList, searchFields, searchForm } = props
+  const { url, fetchList, searchFields, searchForm, searchMassActions } = props
 
   return (
     <div>
@@ -84,6 +88,7 @@ const DatagridAndSearch = (props) => {
             url={url}
             searchForm={searchForm}
             searchFields={searchFields}
+            searchMassActions={searchMassActions}
           />
           :
           null
