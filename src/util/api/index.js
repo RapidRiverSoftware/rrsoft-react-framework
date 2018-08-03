@@ -150,5 +150,6 @@ export const makeApi = (getApiOptions: () => ({})) => ({
   post: (url, body = {}, options = {}) => apiPost(url, body, {...getApiOptions(), ...options}),
   put: (url, body = {}, options = {}) => apiPut(url, body, {...getApiOptions(), ...options}),
   delete: (url, body = {}, options = {}) => apiDelete(url, body, {...getApiOptions(), ...options}),
+  serialize: serialize,
   responseToAction,
 })

@@ -1,17 +1,22 @@
 // @flow
 import React from 'react'
+import pick from 'lodash/pick'
 import core from 'rrrjs/lib/framework/core'
 import { connect } from 'react-redux'
 import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 import Split from '../../components/grouping/Split'
 
-const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
+const makeCrud = (props) => {
+  const { name, title, url, list, edit, add, detail, destroy } = props
+
   const crudName = name || 'Default'
   const EditForm = edit && edit.EditForm
   const editMapStateToProps = edit && edit.mapStateToProps
 
   const AddForm = add && add.AddForm
   const addMapStateToProps = add && add.mapStateToProps
+
+  const detailColumns = detail && detail.columns
 
   const columns = list && list.columns
 
@@ -31,7 +36,45 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
     core.fn('deleteRow')(url, id, onSuccessDelete)
   }
 
-  const rowActions = (row, actions, props) => {
+  const getShowRowModalId = () => `detail/${url}`
+
+  const clickDetail = (row, ridx, openModal) => () => {
+    core.fn('showRow')(url, row, ridx)
+    openModal(getShowRowModalId())
+  }
+
+  const detailMapStateToProps = state => {
+    const searchFields = state.getIn(['connectedDatagrid', 'lastFetched', url, 'searchFields'])
+    const searchFormValues = state.getIn(['form', 'search', 'values'])
+    const searchValues = pick(
+      searchFormValues ? searchFormValues.toJS() : {},
+      searchFields ? searchFields.toJS() : []
+    )
+
+    return {
+      searchValues,
+      showRow: state.getIn(['crud', 'showRow', url]),
+      showRowIdx: state.getIn(['crud', 'showRowIdx', url])
+    }
+  }
+
+  const DetailContainer = connect(detailMapStateToProps)((props) => {
+    const { searchValues, showRow } = props
+    const ConnectedDatagrid = core.component('ConnectedDatagrid')
+    const detailQuery = { ...searchValues, ...showRow }
+    const detailUrl = `/detail${url}?${core.api.serialize(detailQuery)}`
+
+    return (
+      <Modal id={getShowRowModalId()}>
+        <ConnectedDatagrid
+          url={detailUrl}
+          columns={detailColumns}
+        />
+      </Modal>
+    )
+  })
+
+  const rowActions = (row, actions, props, ridx) => {
     const items = []
 
     if (edit) {
@@ -40,6 +83,10 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
 
     if (destroy) {
       items.push(<button key="delete" id={`delete${crudName}${row.id}`} className="link" onClick={clickDelete(row.id)}>Delete</button>)
+    }
+
+    if (detail) {
+      items.push(<button key="detail" className="link" onClick={clickDetail(row, ridx, props.openModal)}>More detail</button>)
     }
 
     return items
@@ -121,6 +168,7 @@ const makeCrud = ({ name, title, url, list, edit, add, destroy }) => {
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
         {AddForm ? <AddFormContainer {...props} /> : null}
+        {detailColumns ? <DetailContainer {...props} /> : null}
       </div>
     )
   }))

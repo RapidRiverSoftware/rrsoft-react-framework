@@ -21,7 +21,6 @@ const deleteRowEpic = (action$: any, store: any) =>
       }
     })
 
-
 export default [
   deleteRowEpic,
 ]
