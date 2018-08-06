@@ -1,6 +1,6 @@
 {
   "name": "rrrjs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": false,
   "dependencies": {
     "detect-port": "1.2.3",
