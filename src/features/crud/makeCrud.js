@@ -36,7 +36,7 @@ const makeCrud = (props) => {
     core.fn('deleteRow')(url, id, onSuccessDelete)
   }
 
-  const getShowRowModalId = () => `detail/${url}`
+  const getShowRowModalId = () => `${url}/detail`
 
   const clickDetail = (row, ridx, openModal) => () => {
     core.fn('showRow')(url, row, ridx)
@@ -62,7 +62,7 @@ const makeCrud = (props) => {
     const { searchValues, showRow } = props
     const ConnectedDatagrid = core.component('ConnectedDatagrid')
     const detailQuery = { ...searchValues, ...showRow }
-    const detailUrl = `/detail${url}?${core.api.serialize(detailQuery)}`
+    const detailUrl = `${url}/detail?${core.api.serialize(detailQuery)}`
 
     return (
       <Modal id={getShowRowModalId()}>
