@@ -66,7 +66,7 @@ const alignToStyles = {
 
 const customStyles = {
   overlay: {
-    zIndex: 99,
+    zIndex: 101,
   },
   content: {
     left: '50%',
@@ -77,7 +77,8 @@ const customStyles = {
     padding: '0px',
     borderWidth: 1,
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    overflow: 'visible',
+    overflow: 'scroll',
+    maxHeight: '95vh',
   },
 };
 
