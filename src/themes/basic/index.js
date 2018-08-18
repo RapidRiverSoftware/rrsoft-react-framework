@@ -283,16 +283,19 @@ export default {
         background-color: #ccc;
       }
 
+      a,
       button.link {
-        font-size: 20px;
-        width: auto;
-        height: auto;
         background-color: transparent;
         color: ${theme.primaryColor(5)};
         &:hover {
           color: ${theme.primaryColor(4)};
           background-color: transparent;
         }
+      }
+      button.link {
+        font-size: 20px;
+        width: auto;
+        height: auto;
         padding: 0 10px;
       }
 
