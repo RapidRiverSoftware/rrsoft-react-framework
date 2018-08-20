@@ -13,5 +13,5 @@ if [ -z "$NPM_TOKEN" ]; then
 else
   echo "NPM_TOKEN found. Publishing directly to npm"
   npm config set //registry.npmjs.org/:_authToken=${NPM_TOKEN} --silent
-  npm install --no-optional && npm version ${VERSION:-minor} && npm publish
+  npm install --no-optional && npm run prepublish && npm version ${VERSION:-minor} && npm publish
 fi
