@@ -234,6 +234,12 @@ export default {
         margin: 20px 0;
       }
 
+      p {
+        font-size: 0.8rem;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
       input,button,select {
         font-family: "system-ui";
       }

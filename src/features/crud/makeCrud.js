@@ -163,9 +163,9 @@ const makeCrud = (props) => {
         {props.isDeleting ? <div style={{ display: 'none' }} id="isDeleting"></div> : null }
         <Split push="right" alignItems="center">
           <h1>{title}</h1>
-          {description && <p>{description}</p>}
           {AddForm ? <button id={`addNew${crudName}`} onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
         </Split>
+        {description && <p>{description}</p>}
         <ListContainer {...props} />
         {EditForm ? <EditFormContainer {...props} /> : null}
         {AddForm ? <AddFormContainer {...props} /> : null}
