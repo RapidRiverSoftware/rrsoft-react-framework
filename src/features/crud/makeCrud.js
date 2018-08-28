@@ -7,7 +7,7 @@ import { connectModal, Modal } from 'rrrjs/lib/features/modal'
 import Split from '../../components/grouping/Split'
 
 const makeCrud = (props) => {
-  const { name, title, url, list, edit, add, detail, destroy } = props
+  const { name, title, description, url, list, edit, add, detail, destroy } = props
 
   const crudName = name || 'Default'
   const EditForm = edit && edit.EditForm
@@ -163,6 +163,7 @@ const makeCrud = (props) => {
         {props.isDeleting ? <div style={{ display: 'none' }} id="isDeleting"></div> : null }
         <Split push="right" alignItems="center">
           <h1>{title}</h1>
+          {description && <p>{description}</p>}
           {AddForm ? <button id={`addNew${crudName}`} onClick={clickAddForm(props.openModal)} className="link">Add New</button> : null}
         </Split>
         <ListContainer {...props} />
