@@ -24,7 +24,7 @@ export const LoginFormComponent = ({ isLoggedIn, handleSubmit, serverErrorMessag
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.getIn(['auth', 'token']),
+  isLoggedIn: true, // disable auth
   serverErrorMessage: state.getIn(['auth', 'error']),
   successLoginUrl: state.getIn(['core', 'successLoginUrl']),
   initialValues: {
