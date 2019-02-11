@@ -58,7 +58,7 @@ const mapStateToProps = (state) => {
 
   return {
     mainMenu: mainMenu ? mainMenu.toJS() : [],
-    isLoggedIn: !!state.getIn(['auth', 'token']),  //aaron-todo: switch back
+    isLoggedIn: true,  //aaron-todo: switch back
     logo
   }
 }
